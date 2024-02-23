@@ -23,9 +23,18 @@ Queries * makeQueriesFromTree(Node * tree) {
     }
     Queries * queries = malloc(sizeof(Queries));
     queries__init(queries);
-    size_t n_queries = 1;
+    int count = 0;
+    Node * tree_cp = tree;
+    while (tree_cp->data.QUERIES_LIST.query != NULL) {
+        count++;
+        if (tree_cp->data.QUERIES_LIST.next == NULL) {
+            break;
+        }
+        tree_cp = tree_cp->data.QUERIES_LIST.next;
+    }
+    size_t n_queries = count;
     queries->n_queries = n_queries;
-    Query ** queries_list = malloc(sizeof(Query));
+    Query ** queries_list = malloc(sizeof(Query) * count);
     queries->queries = queries_list;
     size_t pointer = 0;
     while (tree->data.QUERIES_LIST.query != NULL) {

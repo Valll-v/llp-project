@@ -25,8 +25,15 @@ Node * treeFromRequest(Request * request) {
     node->type = NTOKEN_QUERIES_LIST;
     Query ** queries_list = queries->queries;
     size_t n_queries = queries->n_queries;
-    for (int k = 0; k < n_queries; ++k) {
-        node->data.QUERIES_LIST.query = treeFromQuery(queries_list[k]);
+    Node * node_copy = node;
+    size_t pointer = 1;
+    node_copy->data.QUERIES_LIST.query = treeFromQuery(queries_list[0]);
+    for (int k = pointer; k < n_queries; ++k) {
+        Node * next_node = createNode();
+        next_node->type = NTOKEN_QUERIES_LIST;
+        node_copy->data.QUERIES_LIST.next = next_node;
+        node_copy = next_node;
+        node_copy->data.QUERIES_LIST.query = treeFromQuery(queries_list[0]);
     }
     return node;
 }

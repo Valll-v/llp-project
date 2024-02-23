@@ -1,1 +1,2 @@
 DROP TABLE "fight_record";
+DROP TABLE "aboba";
