@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+message Message {
+  oneof content {
+    Request request = 1;
+    Response response = 2;
+  }
+}
+
+message Response {
+  string string = 1;
+}
+
+message Request {
+  Queries queries = 1;
+}
+
+message Queries {
+  repeated Query queries = 1;
+}
+
+message Query {
+  oneof content {
+    SelectExp select_exp = 1;
+    UpdateExp update_exp = 2;
+    CreateExp create_exp = 3;
+    DeleteExp delete_exp = 4;
+    InsertExp insert_exp = 5;
+    DropExp drop_exp = 6;
+  }
+}
+
+message Exp {
+  oneof content {
+    Value value = 1;
+    CompareExp compare_exp = 2;
+    LogicExp logic_exp = 3;
+    Reference reference = 4;
+  }
+}
+
+enum CompareType {
+    GEQ = 0;
+    LEQ = 1;
+    LESS = 2;
+    GREATER = 3;
+    EQ = 4;
+    NEQ = 5;
+};
+
+enum FieldType {
+    INT_FIELD = 0;
+    FLOAT_FIELD = 1;
+    STRING_FIELD = 2;
+    BOOL_FIELD = 3;
+};
+
+enum LogicType {
+    OR = 0;
+    AND = 1;
+    NOT = 2;
+};
+
+message Set {
+    Column column = 1;
+    Value value = 2;
+}
+
+message SetList {
+    repeated Set set_list = 1;
+}
+
+message UpdateExp {
+    SetList set_list = 1;
+    Table table = 2;
+    Where where = 3;
+}
+
+message Reference {
+    Table table = 1;
+    Column column = 2;
+}
+
+message ReferenceList {
+    repeated Reference reference = 1;
+}
+
+message Table {
+    string table = 1;
+}
+
+message Column {
+    string column = 1;
+}
+
+message SelectExp {
+    Reference reference = 1;
+    Table table = 2;
+    Where where = 3;
+}
+
+message Where {
+    LogicType logic = 1;
+}
+
+message DeleteExp {
+    Table table = 1;
+    Where where = 2;
+}
+
+message FieldList {
+    repeated Field field = 1;
+}
+
+message Field {
+    Column column = 1;
+    FieldType field_type = 2;
+}
+
+message CreateExp {
+    Table table = 1;
+    FieldList field_list = 2;
+}
+
+message ValuesList {
+    repeated Value values_list = 1;
+}
+
+message InsertExp {
+    Table table = 1;
+    ValuesList values_list = 2;
+}
+
+message DropExp {
+    Table table = 1;
+}
+
+message LogicExp {
+    LogicType logic = 1;
+    Exp left = 2;
+    Exp right = 3;
+}
+
+message CompareExp {
+    CompareType compare = 1;
+    Exp left = 2;
+    Exp right = 3;
+}
+
+message Value {
+    oneof content {
+        int32 int = 1;
+        float float = 2;
+        string string = 3;
+        bool bool = 4;
+    }
+}
