@@ -11,4 +11,22 @@ Node * treeFromDrop(DropExp *);
 
 Node * treeFromTable(Table *);
 
+Node * treeFromSelect(SelectExp *);
+
+Node * treeFromDelete(DeleteExp *);
+
 Node * valueFromProto(Value *);
+
+Node * treeFromColumn(Column *);
+
+Node * treeFromReference(Reference *);
+
+Node * treeFromReferenceList(ReferenceList *);
+
+Node * treeFromCompare(CompareExp *);
+
+Node * treeFromExp(Exp *);
+
+Node * treeFromLogic(LogicExp *);
+
+Node * treeFromWhere(Where *);

@@ -266,7 +266,7 @@ struct  SelectExp
 struct  Where
 {
   ProtobufCMessage base;
-  LogicExp *logic;
+  Exp *exp;
 };
 #define WHERE__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&where__descriptor) \

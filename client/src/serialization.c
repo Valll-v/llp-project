@@ -148,7 +148,7 @@ Where * makeWhereFromTree(Node * tree) {
     }
     Where * where = malloc(sizeof(Where));
     where__init(where);
-    where->logic = makeLogicListFromTree(tree->data.WHERE.logic);
+    where->exp = makeExpFromTree(tree->data.WHERE.logic);
     return where;
 }
 

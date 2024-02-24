@@ -100,7 +100,7 @@ message SelectExp {
 }
 
 message Where {
-    LogicExp logic = 1;
+    Exp exp = 1;
 }
 
 message DeleteExp {

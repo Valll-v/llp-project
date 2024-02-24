@@ -1862,20 +1862,20 @@ const ProtobufCMessageDescriptor select_exp__descriptor =
 static const ProtobufCFieldDescriptor where__field_descriptors[1] =
 {
   {
-    "logic",
+    "exp",
     1,
     PROTOBUF_C_LABEL_NONE,
     PROTOBUF_C_TYPE_MESSAGE,
     0,   /* quantifier_offset */
-    offsetof(Where, logic),
-    &logic_exp__descriptor,
+    offsetof(Where, exp),
+    &exp__descriptor,
     NULL,
     0,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
 };
 static const unsigned where__field_indices_by_name[] = {
-  0,   /* field[0] = logic */
+  0,   /* field[0] = exp */
 };
 static const ProtobufCIntRange where__number_ranges[1 + 1] =
 {

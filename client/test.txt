@@ -13,3 +13,5 @@ WHERE
 DROP TABLE "fight_record";
 
 DELETE FROM "fight_record";
+
+DELETE FROM "fight_record" WHERE "fight_record"."id" == 1;
