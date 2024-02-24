@@ -49,6 +49,7 @@ Node * treeFromQuery(Query * query) {
             node = treeFromSelect(query->select_exp);
             break;
         case QUERY__CONTENT_UPDATE_EXP:
+            node = treeFromUpdate(query->update_exp);
             break;
         case QUERY__CONTENT_CREATE_EXP:
             node = treeFromCreate(query->create_exp);
@@ -57,6 +58,7 @@ Node * treeFromQuery(Query * query) {
             node = treeFromDelete(query->delete_exp);
             break;
         case QUERY__CONTENT_INSERT_EXP:
+            node = treeFromInsert(query->insert_exp);
             break;
         case QUERY__CONTENT_DROP_EXP:
             node = treeFromDrop(query->drop_exp);
@@ -65,6 +67,81 @@ Node * treeFromQuery(Query * query) {
     return node;
 }
 
+Node * treeFromInsert(InsertExp * insert_exp) {
+    if (insert_exp == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_INSERT;
+    node->data.INSERT.table = treeFromTable(insert_exp->table);
+    node->data.INSERT.values_list = treeFromValuesList(insert_exp->values_list);
+    return node;
+}
+
+Node * treeFromValuesList(ValuesList * values_list) {
+    if (values_list == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_VALUES_LIST;
+    Value ** values = values_list->values_list;
+    size_t n_values_list = values_list->n_values_list;
+    Node * node_copy = node;
+    size_t pointer = 1;
+    node_copy->data.VALUES_LIST.value = valueFromProto(values[0]);
+    for (int k = pointer; k < n_values_list; ++k) {
+        Node * next_node = createNode();
+        next_node->type = NTOKEN_VALUES_LIST;
+        node_copy->data.VALUES_LIST.next = next_node;
+        node_copy = next_node;
+        node_copy->data.VALUES_LIST.value = valueFromProto(values[k]);
+    }
+    return node;
+}
+
+Node * treeFromUpdate(UpdateExp * update_exp) {
+    if (update_exp == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_UPDATE;
+    node->data.UPDATE.table = treeFromTable(update_exp->table);
+    node->data.UPDATE.where = treeFromWhere(update_exp->where);
+    node->data.UPDATE.set_list = treeFromSetList(update_exp->set_list);
+    return node;
+}
+
+Node * treeFromSetList(SetList * set_list) {
+    if (set_list == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_SET_LIST;
+    Set ** sets = set_list->set_list;
+    size_t n_set_list = set_list->n_set_list;
+    Node * node_copy = node;
+    size_t pointer = 1;
+    node_copy->data.SET_LIST.set = treeFromSet(sets[0]);
+    for (int k = pointer; k < n_set_list; ++k) {
+        Node * next_node = createNode();
+        next_node->type = NTOKEN_SET_LIST;
+        node_copy->data.SET_LIST.next = next_node;
+        node_copy = next_node;
+        node_copy->data.SET_LIST.set = treeFromSet(sets[k]);
+    }
+    return node;
+}
+
+Node * treeFromSet(Set * set) {
+    if (set == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_SET;
+    node->data.SET.column = treeFromColumn(set->column);
+    node->data.SET.value = valueFromProto(set->value);
+    return node;
+}
 
 Node * treeFromCreate(CreateExp * create_exp) {
     if (create_exp == NULL) {

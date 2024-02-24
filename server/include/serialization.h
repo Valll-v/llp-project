@@ -29,6 +29,12 @@ Node * treeFromExp(Exp *);
 
 Node * treeFromLogic(LogicExp *);
 
+Node * treeFromUpdate(UpdateExp * );
+
+Node * treeFromSetList(SetList *);
+
+Node * treeFromSet(Set *);
+
 Node * treeFromWhere(Where *);
 
 Node * treeFromField(Field *);
@@ -36,4 +42,8 @@ Node * treeFromField(Field *);
 Node * treeFromFieldList(FieldList *);
 
 Node * treeFromCreate(CreateExp *);
+
+Node * treeFromInsert(InsertExp *);
+
+Node * treeFromValuesList(ValuesList *);
 
