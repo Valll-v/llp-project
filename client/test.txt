@@ -1,3 +1,15 @@
+SELECT "fight_record"."id", "fight_record"."id"
+FROM
+"fight_record"
+WHERE
+("fight_record"."id" == 1 OR "fight_record"."id" == 2) AND "fight_record"."id" == 3;
+
 SELECT "fight_record"."id"
 FROM
-"fight_record";
+"fight_record"
+WHERE
+"fight_record"."id" == 1 OR ("fight_record"."id" == 2 AND "fight_record"."id" == 3);
+
+DROP TABLE "fight_record";
+
+DELETE FROM "fight_record";

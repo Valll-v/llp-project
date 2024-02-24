@@ -18,7 +18,7 @@ PRTLIB = `pkg-config --cflags --libs libprotobuf-c`
 
 INC += -I$(INCDIR) -I$(CMNDIR)$(INCDIR)
 
-COMPILE = $(CC) $(INC) -c $< -o $@
+COMPILE = $(CC) $(INC) -c $< -o $@  -g
 # не нашел способа адекватнее в мейке разделить на две директории
 BISON = bison -o $@ --header=$(INCDIR)/$(basename $(notdir $@)).h $<
 FLEX = flex -o $@ -i $<

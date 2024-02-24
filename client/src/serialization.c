@@ -245,7 +245,7 @@ Reference * makeReferenceFromTree(Node * tree) {
     reference__init(reference);
     reference->table = makeTableFromTree(tree->data.REFERENCE.table);
     reference->column = makeColumnFromTree(tree->data.REFERENCE.column);
-    return NULL;
+    return reference;
 }
 
 Column * makeColumnFromTree(Node * tree) {
