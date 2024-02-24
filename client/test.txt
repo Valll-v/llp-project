@@ -1,2 +1,3 @@
-DROP TABLE "fight_record";
-DROP TABLE "aboba";
+SELECT "fight_record"."id"
+FROM
+"fight_record";

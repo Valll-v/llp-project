@@ -62,7 +62,6 @@ int run_server() {
         Node *tree = createNode();
         tree = treeFromMessage(message);
         if (tree == NULL) {
-            free(data);
             continue;
         }
         printTree(tree, 0);

@@ -94,13 +94,13 @@ message Column {
 }
 
 message SelectExp {
-    Reference reference = 1;
+    ReferenceList reference_list = 1;
     Table table = 2;
     Where where = 3;
 }
 
 message Where {
-    LogicType logic = 1;
+    LogicExp logic = 1;
 }
 
 message DeleteExp {

@@ -60,6 +60,7 @@ Query * makeQueryFromTree(Node * tree) {
     switch (tree->type) {
         case NTOKEN_SELECT:
             query->content_case = QUERY__CONTENT_SELECT_EXP;
+            query->select_exp = makeSelectFromTree(tree);
             printf("SELECT\n");
             break;
         case NTOKEN_UPDATE:
@@ -67,11 +68,13 @@ Query * makeQueryFromTree(Node * tree) {
             printf("UPDATE\n");
             break;
         case NTOKEN_DELETE:
-            query->content_case = QUERY__CONTENT_DELETE_EXP;
             printf("DELETE\n");
+            query->content_case = QUERY__CONTENT_DELETE_EXP;
+            query->delete_exp = makeDeleteFromTree(tree);
             break;
         case NTOKEN_CREATE:
             query->content_case = QUERY__CONTENT_CREATE_EXP;
+            query->create_exp = makeCreateFromTree(tree);
             printf("CREATE\n");
             break;
         case NTOKEN_INSERT:
@@ -88,6 +91,35 @@ Query * makeQueryFromTree(Node * tree) {
 }
 
 
+CreateExp * makeCreateFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    CreateExp * create_exp = malloc(sizeof(CreateExp));
+    create_exp__init(create_exp);
+    create_exp->table = makeTableFromTree(tree->data.CREATE.table);
+    create_exp->field_list = makeFieldListFromTree(tree->data.CREATE.field_list);
+    return create_exp;
+}
+
+
+FieldList * makeFieldListFromTree(Node * tree) {
+    return NULL;
+}
+
+
+DeleteExp * makeDeleteFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    DeleteExp * delete_exp = malloc(sizeof(DeleteExp));
+    delete_exp__init(delete_exp);
+    delete_exp->table = makeTableFromTree(tree->data.DELETE.table);
+    delete_exp->where = makeWhereFromTree(tree->data.DELETE.where);
+    return delete_exp;
+}
+
+
 DropExp * makeDropFromTree(Node * tree) {
     if (tree == NULL) {
         return NULL;
@@ -98,12 +130,143 @@ DropExp * makeDropFromTree(Node * tree) {
     return drop_exp;
 }
 
+SelectExp * makeSelectFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    SelectExp * select_exp = malloc(sizeof(SelectExp));
+    select_exp__init(select_exp);
+    select_exp->table = makeTableFromTree(tree->data.SELECT.table);
+    select_exp->reference_list = makeReferenceListFromTree(tree->data.SELECT.reference);
+    select_exp->where = makeWhereFromTree(tree->data.SELECT.where);
+    return select_exp;
+}
+
+Where * makeWhereFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    Where * where = malloc(sizeof(Where));
+    where__init(where);
+    where->logic = makeLogicListFromTree(tree->data.WHERE.logic);
+    return where;
+}
+
+LogicExp * makeLogicListFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    LogicExp * logic = malloc(sizeof(LogicExp));
+    logic_exp__init(logic);
+    logic->logic = tree->data.LOGIC.type;
+    logic->left = makeExpFromTree(tree->data.LOGIC.left);
+    logic->right = makeExpFromTree(tree->data.LOGIC.right);
+    return logic;
+}
+
+Exp * makeExpFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    Exp * exp = malloc(sizeof(Exp));
+    exp__init(exp);
+    switch (tree->type) {
+        case NTOKEN_INT:
+        case NTOKEN_FLOAT:
+        case NTOKEN_BOOL:
+        case NTOKEN_STRING:
+            exp->content_case = EXP__CONTENT_VALUE;
+            exp->value = makeValueFromQuery(tree);
+            break;
+        case NTOKEN_LOGIC:
+            exp->content_case = EXP__CONTENT_LOGIC_EXP;
+            exp->logic_exp = makeLogicListFromTree(tree);
+            break;
+        case NTOKEN_REFERENCE:
+            exp->content_case = EXP__CONTENT_REFERENCE;
+            exp->reference = makeReferenceFromTree(tree);
+            break;
+        case NTOKEN_COMPARE:
+            exp->content_case = EXP__CONTENT_COMPARE_EXP;
+            exp->compare_exp = makeCompareFromTree(tree);
+            break;
+    }
+    return exp;
+}
+
+CompareExp * makeCompareFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    CompareExp * compare_exp = malloc(sizeof(CompareExp));
+    compare_exp__init(compare_exp);
+    compare_exp->compare = tree->data.COMPARE.type;
+    compare_exp->left = makeExpFromTree(tree->data.COMPARE.left);
+    compare_exp->right = makeExpFromTree(tree->data.COMPARE.right);
+    return compare_exp;
+}
+
+ReferenceList * makeReferenceListFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    ReferenceList * reference_list = malloc(sizeof(ReferenceList));
+    reference_list__init(reference_list);
+    int count = 0;
+    Node * tree_cp = tree;
+    while (tree_cp->data.REFERENCE_LIST.reference != NULL) {
+        count++;
+        if (tree_cp->data.REFERENCE_LIST.next == NULL) {
+            break;
+        }
+        tree_cp = tree_cp->data.REFERENCE_LIST.next;
+    }
+    size_t n_reference = count;
+    reference_list->n_reference = n_reference;
+    reference_list->reference = malloc(sizeof(Reference) * count);
+    size_t pointer = 0;
+    while (tree->data.REFERENCE_LIST.reference != NULL) {
+        Reference * reference = makeReferenceFromTree(tree->data.REFERENCE_LIST.reference);
+        reference_list->reference[pointer] = reference;
+        if (tree->data.REFERENCE_LIST.next == NULL) {
+            break;
+        }
+        tree = tree->data.REFERENCE_LIST.next;
+        pointer++;
+    }
+    return reference_list;
+}
+
+Reference * makeReferenceFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    Reference * reference = malloc(sizeof(Reference));
+    reference__init(reference);
+    reference->table = makeTableFromTree(tree->data.REFERENCE.table);
+    reference->column = makeColumnFromTree(tree->data.REFERENCE.column);
+    return NULL;
+}
+
+Column * makeColumnFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    Column * column = malloc(sizeof(Column));
+    column__init(column);
+    column->column = tree->data.COLUMN.column;
+    return column;
+}
+
 Table * makeTableFromTree(Node * tree) {
     if (tree == NULL) {
         return NULL;
     }
     Table * table = malloc(sizeof(Table));
     table__init(table);
+    tree->data;
+    tree->data.TABLE;
+    tree->data.TABLE.table;
     table->table = tree->data.TABLE.table;
     return table;
 }

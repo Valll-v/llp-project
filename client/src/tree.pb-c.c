@@ -1798,13 +1798,13 @@ const ProtobufCMessageDescriptor column__descriptor =
 static const ProtobufCFieldDescriptor select_exp__field_descriptors[3] =
 {
   {
-    "reference",
+    "reference_list",
     1,
     PROTOBUF_C_LABEL_NONE,
     PROTOBUF_C_TYPE_MESSAGE,
     0,   /* quantifier_offset */
-    offsetof(SelectExp, reference),
-    &reference__descriptor,
+    offsetof(SelectExp, reference_list),
+    &reference_list__descriptor,
     NULL,
     0,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */
@@ -1835,7 +1835,7 @@ static const ProtobufCFieldDescriptor select_exp__field_descriptors[3] =
   },
 };
 static const unsigned select_exp__field_indices_by_name[] = {
-  0,   /* field[0] = reference */
+  0,   /* field[0] = reference_list */
   1,   /* field[1] = table */
   2,   /* field[2] = where */
 };
@@ -1865,10 +1865,10 @@ static const ProtobufCFieldDescriptor where__field_descriptors[1] =
     "logic",
     1,
     PROTOBUF_C_LABEL_NONE,
-    PROTOBUF_C_TYPE_ENUM,
+    PROTOBUF_C_TYPE_MESSAGE,
     0,   /* quantifier_offset */
     offsetof(Where, logic),
-    &logic_type__descriptor,
+    &logic_exp__descriptor,
     NULL,
     0,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */

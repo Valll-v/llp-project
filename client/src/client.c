@@ -6,11 +6,16 @@ int sendMessage(int sockfd, Message * message) {
     uint8_t pad[128];
     ProtobufCBufferSimple simple = PROTOBUF_C_BUFFER_SIMPLE_INIT(pad);
     ProtobufCBuffer *buffer = (ProtobufCBuffer *) &simple;
+    printf("%ld\n", sizeof(message));
     size_t size = message__pack_to_buffer(message, buffer);
+    printf("boba\n");
 
     write(sockfd, &size, sizeof(size));
+    printf("boba\n");
     write(sockfd, simple.data, size);
+    printf("boba\n");
     PROTOBUF_C_BUFFER_SIMPLE_CLEAR(&simple);
+    printf("boba\n");
     return 0;
 }
 

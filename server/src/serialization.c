@@ -33,7 +33,7 @@ Node * treeFromRequest(Request * request) {
         next_node->type = NTOKEN_QUERIES_LIST;
         node_copy->data.QUERIES_LIST.next = next_node;
         node_copy = next_node;
-        node_copy->data.QUERIES_LIST.query = treeFromQuery(queries_list[0]);
+        node_copy->data.QUERIES_LIST.query = treeFromQuery(queries_list[k]);
     }
     return node;
 }

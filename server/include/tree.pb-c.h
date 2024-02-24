@@ -254,7 +254,7 @@ struct  Column
 struct  SelectExp
 {
   ProtobufCMessage base;
-  Reference *reference;
+  ReferenceList *reference_list;
   Table *table;
   Where *where;
 };
@@ -266,11 +266,11 @@ struct  SelectExp
 struct  Where
 {
   ProtobufCMessage base;
-  LogicType logic;
+  LogicExp *logic;
 };
 #define WHERE__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&where__descriptor) \
-    , LOGIC_TYPE__OR }
+    , NULL }
 
 
 struct  DeleteExp
