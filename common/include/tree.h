@@ -174,4 +174,6 @@ const char * getTypeField(fieldType);
 
 const char * getTypeLogic(logicType);
 
+char * stripString(char *);
+
 void printTree(Node *tree, int tab);

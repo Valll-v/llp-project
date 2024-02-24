@@ -1301,7 +1301,7 @@ yyreduce:
                    {
     Node *node = createNode();
     node->type = NTOKEN_TABLE;
-    node->data.TABLE.table = (yyvsp[0].stringValue);
+    node->data.TABLE.table = stripString((yyvsp[0].stringValue));
     (yyval.node) = node;
 }
 #line 1308 "src/bison.gen.c"
@@ -1312,7 +1312,7 @@ yyreduce:
                     {
     Node *node = createNode();
     node->type = NTOKEN_COLUMN;
-    node->data.COLUMN.column = (yyvsp[0].stringValue);
+    node->data.COLUMN.column = stripString((yyvsp[0].stringValue));
     (yyval.node) = node;
 }
 #line 1319 "src/bison.gen.c"
@@ -1562,7 +1562,7 @@ yyreduce:
              {
     Node *node = createNode();
     node->type = NTOKEN_STRING;
-    node->data.STRING.value = (yyvsp[0].stringValue);
+    node->data.STRING.value = stripString((yyvsp[0].stringValue));
     (yyval.node) = node;
 }
 #line 1569 "src/bison.gen.c"

@@ -144,13 +144,13 @@ REFERENCE {
 TABLE: TOKEN_NAME  {
     Node *node = createNode();
     node->type = NTOKEN_TABLE;
-    node->data.TABLE.table = $1;
+    node->data.TABLE.table = stripString($1);
     $$ = node;
 };
 COLUMN: TOKEN_NAME  {
     Node *node = createNode();
     node->type = NTOKEN_COLUMN;
-    node->data.COLUMN.column = $1;
+    node->data.COLUMN.column = stripString($1);
     $$ = node;
 };
 REFERENCE: TABLE TOKEN_DOT COLUMN {
@@ -302,7 +302,7 @@ TOKEN_BOOL {
 TOKEN_STRING {
     Node *node = createNode();
     node->type = NTOKEN_STRING;
-    node->data.STRING.value = $1;
+    node->data.STRING.value = stripString($1);
     $$ = node;
 };
 

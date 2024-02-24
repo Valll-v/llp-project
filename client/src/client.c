@@ -48,7 +48,7 @@ void run_client(Node* tree, char* host, int port) {
     message.content_case = MESSAGE__CONTENT_REQUEST;
     message.request = makeRequestFromTree(tree);
 
-    sendMessage(sockfd, &message);
     printTree(tree, 0);
+    sendMessage(sockfd, &message);
     close(sockfd);
 }

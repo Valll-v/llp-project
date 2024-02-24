@@ -65,6 +65,7 @@ Query * makeQueryFromTree(Node * tree) {
             break;
         case NTOKEN_UPDATE:
             query->content_case = QUERY__CONTENT_UPDATE_EXP;
+            query->update_exp = makeUpdateFromTree(tree);
             printf("UPDATE\n");
             break;
         case NTOKEN_DELETE:
@@ -79,6 +80,7 @@ Query * makeQueryFromTree(Node * tree) {
             break;
         case NTOKEN_INSERT:
             query->content_case = QUERY__CONTENT_INSERT_EXP;
+            query->insert_exp = makeInsertFromTree(tree);
             printf("INSERT\n");
             break;
         case NTOKEN_DROP:
@@ -90,6 +92,103 @@ Query * makeQueryFromTree(Node * tree) {
     return query;
 }
 
+UpdateExp * makeUpdateFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    UpdateExp * update_exp = malloc(sizeof(UpdateExp));
+    update_exp__init(update_exp);
+    update_exp->table = makeTableFromTree(tree->data.UPDATE.table);
+    update_exp->where = makeWhereFromTree(tree->data.UPDATE.where);
+    update_exp->set_list = makeSetListFromTree(tree->data.UPDATE.set_list);
+    return update_exp;
+}
+
+SetList * makeSetListFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    SetList * set_list = malloc(sizeof(SetList));
+    set_list__init(set_list);
+    int count = 0;
+    Node * tree_cp = tree;
+    while (tree_cp->data.SET_LIST.set != NULL) {
+        count++;
+        if (tree_cp->data.SET_LIST.next == NULL) {
+            break;
+        }
+        tree_cp = tree_cp->data.SET_LIST.next;
+    }
+    set_list->n_set_list = count;
+    Set ** sets = malloc(sizeof(Set) * count);
+    set_list->set_list = sets;
+    size_t pointer = 0;
+    while (tree->data.SET_LIST.set != NULL) {
+        Node * set_tree = tree->data.SET_LIST.set;
+        Set * set = makeSetFromTree(set_tree);
+        sets[pointer] = set;
+        if (tree->data.SET_LIST.next == NULL) {
+            break;
+        }
+        tree = tree->data.SET_LIST.next;
+        pointer++;
+    }
+    return set_list;
+}
+
+Set * makeSetFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    Set * set = malloc(sizeof(Set));
+    set__init(set);
+    set->column = makeColumnFromTree(tree->data.SET.column);
+    set->value = makeValueFromQuery(tree->data.SET.value);
+    return set;
+}
+
+InsertExp * makeInsertFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    InsertExp * insert_exp = malloc(sizeof(InsertExp));
+    insert_exp__init(insert_exp);
+    insert_exp->table = makeTableFromTree(tree->data.INSERT.table);
+    insert_exp->values_list = makeValuesListFromTree(tree->data.INSERT.values_list);
+    return insert_exp;
+}
+
+ValuesList * makeValuesListFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    ValuesList * values_list = malloc(sizeof(ValuesList));
+    values_list__init(values_list);
+    int count = 0;
+    Node * tree_cp = tree;
+    while (tree_cp->data.VALUES_LIST.value != NULL) {
+        count++;
+        if (tree_cp->data.VALUES_LIST.next == NULL) {
+            break;
+        }
+        tree_cp = tree_cp->data.VALUES_LIST.next;
+    }
+    values_list->n_values_list = count;
+    Value ** values = malloc(sizeof(Value) * count);
+    values_list->values_list = values;
+    size_t pointer = 0;
+    while (tree->data.VALUES_LIST.value != NULL) {
+        Node * value_tree = tree->data.VALUES_LIST.value;
+        Value * value = makeValueFromQuery(value_tree);
+        values[pointer] = value;
+        if (tree->data.VALUES_LIST.next == NULL) {
+            break;
+        }
+        tree = tree->data.VALUES_LIST.next;
+        pointer++;
+    }
+    return values_list;
+}
 
 CreateExp * makeCreateFromTree(Node * tree) {
     if (tree == NULL) {
@@ -324,15 +423,15 @@ Value * makeValueFromQuery(Node * tree) {
             break;
         case NTOKEN_FLOAT:
             data->content_case = VALUE__CONTENT_FLOAT;
-            data->int_ = tree->data.INT.value;
+            data->float_ = tree->data.FLOAT.value;
             break;
         case NTOKEN_STRING:
             data->content_case = VALUE__CONTENT_STRING;
-            data->int_ = tree->data.INT.value;
+            data->string = tree->data.STRING.value;
             break;
         case NTOKEN_BOOL:
             data->content_case = VALUE__CONTENT_BOOL;
-            data->int_ = tree->data.INT.value;
+            data->bool_ = tree->data.BOOL.value;
             break;
     }
     return data;

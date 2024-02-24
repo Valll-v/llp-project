@@ -35,3 +35,13 @@ CreateExp * makeCreateFromTree(Node *);
 FieldList * makeFieldListFromTree(Node *);
 
 Field * makeFieldFromTree(Node *);
+
+InsertExp * makeInsertFromTree(Node *);
+
+ValuesList * makeValuesListFromTree(Node *);
+
+UpdateExp * makeUpdateFromTree(Node *);
+
+SetList * makeSetListFromTree(Node *);
+
+Set * makeSetFromTree(Node *);

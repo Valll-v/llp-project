@@ -1,5 +1,6 @@
 #include <malloc.h>
 #include <stdlib.h>
+#include <string.h>
 #include "tree.h"
 
 #define INDENT "  "
@@ -198,6 +199,16 @@ void printTree(Node *tree, int indentCount) {
             printTree(tree->data.DROP.table, indentCount + 1);
             break;
     }
+}
+
+char * stripString(char * string) {
+    size_t length = strlen(string);
+    if (length < 2) {
+        return NULL;
+    }
+    char * new_string = malloc(sizeof (char) * (length - 2));
+    strncpy(new_string, string + 1, length - 2);
+    return new_string;
 }
 
 void freeNode(Node *node) {
