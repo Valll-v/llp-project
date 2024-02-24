@@ -104,7 +104,47 @@ CreateExp * makeCreateFromTree(Node * tree) {
 
 
 FieldList * makeFieldListFromTree(Node * tree) {
-    return NULL;
+    if (tree == NULL) {
+        return NULL;
+    }
+    FieldList * field_list = malloc(sizeof(FieldList));
+    field_list__init(field_list);
+    int count = 0;
+    Node * tree_cp = tree;
+    while (tree_cp->data.FIELD_LIST.field != NULL) {
+        count++;
+        if (tree_cp->data.FIELD_LIST.next == NULL) {
+            break;
+        }
+        tree_cp = tree_cp->data.FIELD_LIST.next;
+    }
+    field_list->n_field = count;
+    Field ** fields = malloc(sizeof(Field) * count);
+    field_list->field = fields;
+    size_t pointer = 0;
+    while (tree->data.FIELD_LIST.field != NULL) {
+        Node * field_tree = tree->data.FIELD_LIST.field;
+        Field * field = makeFieldFromTree(field_tree);
+        fields[pointer] = field;
+        if (tree->data.FIELD_LIST.next == NULL) {
+            break;
+        }
+        tree = tree->data.FIELD_LIST.next;
+        pointer++;
+    }
+    return field_list;
+}
+
+
+Field * makeFieldFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    Field * field = malloc(sizeof(Field));
+    field__init(field);
+    field->column = makeColumnFromTree(tree->data.FIELD.column);
+    field->field_type = tree->data.FIELD.type;
+    return field;
 }
 
 

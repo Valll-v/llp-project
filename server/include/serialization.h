@@ -30,3 +30,10 @@ Node * treeFromExp(Exp *);
 Node * treeFromLogic(LogicExp *);
 
 Node * treeFromWhere(Where *);
+
+Node * treeFromField(Field *);
+
+Node * treeFromFieldList(FieldList *);
+
+Node * treeFromCreate(CreateExp *);
+

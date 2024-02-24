@@ -33,3 +33,5 @@ Exp * makeExpFromTree(Node *);
 CreateExp * makeCreateFromTree(Node *);
 
 FieldList * makeFieldListFromTree(Node *);
+
+Field * makeFieldFromTree(Node *);

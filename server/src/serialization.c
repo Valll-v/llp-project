@@ -51,6 +51,7 @@ Node * treeFromQuery(Query * query) {
         case QUERY__CONTENT_UPDATE_EXP:
             break;
         case QUERY__CONTENT_CREATE_EXP:
+            node = treeFromCreate(query->create_exp);
             break;
         case QUERY__CONTENT_DELETE_EXP:
             node = treeFromDelete(query->delete_exp);
@@ -64,6 +65,49 @@ Node * treeFromQuery(Query * query) {
     return node;
 }
 
+
+Node * treeFromCreate(CreateExp * create_exp) {
+    if (create_exp == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_CREATE;
+    node->data.CREATE.table = treeFromTable(create_exp->table);
+    node->data.CREATE.field_list = treeFromFieldList(create_exp->field_list);
+    return node;
+}
+
+Node * treeFromFieldList(FieldList * field_list) {
+    if (field_list == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_FIELD_LIST;
+    Field ** fields = field_list->field;
+    size_t n_field = field_list->n_field;
+    Node * node_copy = node;
+    size_t pointer = 1;
+    node_copy->data.FIELD_LIST.field = treeFromField(fields[0]);
+    for (int k = pointer; k < n_field; ++k) {
+        Node * next_node = createNode();
+        next_node->type = NTOKEN_FIELD_LIST;
+        node_copy->data.FIELD_LIST.next = next_node;
+        node_copy = next_node;
+        node_copy->data.FIELD_LIST.field = treeFromField(fields[k]);
+    }
+    return node;
+}
+
+Node * treeFromField(Field * field) {
+    if (field == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_FIELD;
+    node->data.FIELD.column = treeFromColumn(field->column);
+    node->data.FIELD.type = field->field_type;
+    return node;
+}
 
 Node * treeFromDelete(DeleteExp * delete_exp) {
     if (delete_exp == NULL) {
