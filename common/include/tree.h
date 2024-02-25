@@ -12,6 +12,8 @@ enum nodeType {
     NTOKEN_COLUMN,
     NTOKEN_REFERENCE,
     NTOKEN_SELECT,
+    NTOKEN_JOIN_LIST,
+    NTOKEN_JOIN,
     NTOKEN_REFERENCE_LIST,
     NTOKEN_WHERE,
     NTOKEN_SET,
@@ -98,6 +100,15 @@ struct Node {
         } LOGIC;
 
         struct {
+            struct Node *join;
+            struct Node *next;
+        } JOIN_LIST;
+        struct {
+            struct Node *table;
+            struct Node *left;
+            struct Node *right;
+        } JOIN;
+        struct {
             struct Node *reference;
             struct Node *next;
         } REFERENCE_LIST;
@@ -109,6 +120,7 @@ struct Node {
             struct Node *reference;
             struct Node *table;
             struct Node *where;
+            struct Node *join_list;
         } SELECT;
 
         struct {

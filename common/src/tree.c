@@ -124,6 +124,9 @@ void printTree(Node *tree, int indentCount) {
             printIndent(indentCount);
             printf("FROM\n");
             printTree(tree->data.SELECT.table, indentCount + 1);
+            if (tree->data.SELECT.join_list != NULL) {
+                printTree(tree->data.SELECT.join_list, indentCount);
+            }
             printIndent(indentCount);
             if (tree->data.SELECT.where != NULL) {
                 printf("WHERE\n");
@@ -165,8 +168,21 @@ void printTree(Node *tree, int indentCount) {
             printTree(tree->data.FIELD_LIST.field, indentCount + 1);
             while (tree->data.FIELD_LIST.next != NULL) {
                 tree = tree->data.FIELD_LIST.next;
-            printTree(tree->data.FIELD_LIST.field, indentCount + 1);
+                printTree(tree->data.FIELD_LIST.field, indentCount + 1);
             }
+            break;
+        case NTOKEN_JOIN_LIST:
+            printf("JOINS:\n");
+            printTree(tree->data.JOIN_LIST.join, indentCount + 1);
+            while (tree->data.JOIN_LIST.next != NULL) {
+                tree = tree->data.JOIN_LIST.next;
+                printTree(tree->data.JOIN_LIST.join, indentCount + 1);
+            }
+            break;
+        case NTOKEN_JOIN:
+            printf("JOIN:\n");
+            printTree(tree->data.JOIN.left, indentCount + 1);
+            printTree(tree->data.JOIN.right, indentCount + 1);
             break;
         case NTOKEN_FIELD:
             printf("%s: \n", getTypeField(tree->data.FIELD.type));

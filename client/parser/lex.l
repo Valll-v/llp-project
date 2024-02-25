@@ -31,6 +31,8 @@
 "SELECT"            { return TOKEN_SELECT; }
 "FROM"              { return TOKEN_FROM; }
 "WHERE"             { return TOKEN_WHERE; }
+"JOIN"              { return TOKEN_JOIN; }
+"ON"                { return TOKEN_ON; }
 
 "CREATE"            { return TOKEN_CREATE; }
 "INTEGER"           { yylval.fieldType = 0; return TOKEN_INT_FIELD; }

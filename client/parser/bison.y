@@ -27,12 +27,13 @@
 %token TOKEN_OPEN TOKEN_CLOSE TOKEN_DOT TOKEN_COMMA TOKEN_ASSIGNMENT
 %token TOKEN_SELECT TOKEN_FROM TOKEN_WHERE TOKEN_CREATE TOKEN_DROP TOKEN_TABLE
 %token TOKEN_DELETE TOKEN_INSERT TOKEN_INTO TOKEN_UPDATE TOKEN_SET TOKEN_VALUES
+%token TOKEN_JOIN TOKEN_ON
 
 %token<compareType> TOKEN_LEQ TOKEN_GEQ TOKEN_LESS TOKEN_GREATER TOKEN_EQ TOKEN_NEQ
 %token<logicType> TOKEN_OR TOKEN_AND TOKEN_NOT TOKEN_END
 %token<fieldType> TOKEN_INT_FIELD TOKEN_FLOAT_FIELD TOKEN_STRING_FIELD TOKEN_BOOL_FIELD
 %type<node> EXP VALUE COMPARE_EXP LOGIC_EXP SELECT_EXP REFERENCE TABLE COLUMN REFERENCE_LIST WHERE QUERY
-%type<node> QUERIES_LIST UPDATE_EXP SET_LIST SET CREATE_EXP FIELD_LIST FIELD DELETE_EXP
+%type<node> QUERIES_LIST UPDATE_EXP SET_LIST SET CREATE_EXP FIELD_LIST FIELD DELETE_EXP JOIN_LIST JOIN
 %type<node> INSERT_EXP VALUES_LIST DROP_EXP
 %type<compareType> COMPARE
 %type<logicType> LOGIC
@@ -160,15 +161,33 @@ REFERENCE: TABLE TOKEN_DOT COLUMN {
     node->data.REFERENCE.column = $3;
     $$ = node;
 };
-SELECT_EXP: TOKEN_SELECT REFERENCE_LIST TOKEN_FROM TABLE WHERE {
+SELECT_EXP: TOKEN_SELECT REFERENCE_LIST TOKEN_FROM TABLE JOIN_LIST WHERE {
     Node *node = createNode();
     node->type = NTOKEN_SELECT;
     node->data.SELECT.reference = $2;
     node->data.SELECT.table = $4;
-    node->data.SELECT.where = $5;
+    node->data.SELECT.join_list = $5;
+    node->data.SELECT.where = $6;
     $$ = node;
 };
-
+JOIN_LIST: {
+    $$ = NULL;
+} |
+JOIN JOIN_LIST {
+    Node *node = createNode();
+    node->type = NTOKEN_JOIN_LIST;
+    node->data.JOIN_LIST.join = $1;
+    node->data.JOIN_LIST.next = $2;
+    $$ = node;
+}
+JOIN: TOKEN_JOIN TABLE TOKEN_ON REFERENCE TOKEN_ASSIGNMENT REFERENCE {
+    Node *node = createNode();
+    node->type = NTOKEN_JOIN;
+    node->data.JOIN.table = $2;
+    node->data.JOIN.left = $4;
+    node->data.JOIN.right = $6;
+    $$ = node;
+};
 
 WHERE: {
     $$ = NULL;

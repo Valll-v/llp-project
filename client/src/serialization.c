@@ -61,32 +61,26 @@ Query * makeQueryFromTree(Node * tree) {
         case NTOKEN_SELECT:
             query->content_case = QUERY__CONTENT_SELECT_EXP;
             query->select_exp = makeSelectFromTree(tree);
-            printf("SELECT\n");
             break;
         case NTOKEN_UPDATE:
             query->content_case = QUERY__CONTENT_UPDATE_EXP;
             query->update_exp = makeUpdateFromTree(tree);
-            printf("UPDATE\n");
             break;
         case NTOKEN_DELETE:
-            printf("DELETE\n");
             query->content_case = QUERY__CONTENT_DELETE_EXP;
             query->delete_exp = makeDeleteFromTree(tree);
             break;
         case NTOKEN_CREATE:
             query->content_case = QUERY__CONTENT_CREATE_EXP;
             query->create_exp = makeCreateFromTree(tree);
-            printf("CREATE\n");
             break;
         case NTOKEN_INSERT:
             query->content_case = QUERY__CONTENT_INSERT_EXP;
             query->insert_exp = makeInsertFromTree(tree);
-            printf("INSERT\n");
             break;
         case NTOKEN_DROP:
             query->content_case = QUERY__CONTENT_DROP_EXP;
             query->drop_exp = makeDropFromTree(tree);
-            printf("DROP\n");
             break;
     }
     return query;
@@ -201,7 +195,6 @@ CreateExp * makeCreateFromTree(Node * tree) {
     return create_exp;
 }
 
-
 FieldList * makeFieldListFromTree(Node * tree) {
     if (tree == NULL) {
         return NULL;
@@ -278,7 +271,52 @@ SelectExp * makeSelectFromTree(Node * tree) {
     select_exp->table = makeTableFromTree(tree->data.SELECT.table);
     select_exp->reference_list = makeReferenceListFromTree(tree->data.SELECT.reference);
     select_exp->where = makeWhereFromTree(tree->data.SELECT.where);
+    select_exp->join_list = makeJoinListFromTree(tree->data.SELECT.join_list);
     return select_exp;
+}
+
+JoinList * makeJoinListFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    JoinList * join_list = malloc(sizeof(JoinList));
+    join_list__init(join_list);
+    int count = 0;
+    Node * tree_cp = tree;
+    while (tree_cp->data.JOIN_LIST.join != NULL) {
+        count++;
+        if (tree_cp->data.JOIN_LIST.next == NULL) {
+            break;
+        }
+        tree_cp = tree_cp->data.JOIN_LIST.next;
+    }
+    join_list->n_join = count;
+    Join ** joins = malloc(sizeof(Join) * count);
+    join_list->join = joins;
+    size_t pointer = 0;
+    while (tree->data.JOIN_LIST.join != NULL) {
+        Node * join_tree = tree->data.JOIN_LIST.join;
+        Join * join = makeJoinFromTree(join_tree);
+        joins[pointer] = join;
+        if (tree->data.JOIN_LIST.next == NULL) {
+            break;
+        }
+        tree = tree->data.JOIN_LIST.next;
+        pointer++;
+    }
+    return join_list;
+}
+
+Join * makeJoinFromTree(Node * tree) {
+    if (tree == NULL) {
+        return NULL;
+    }
+    Join * join = malloc(sizeof(Join));
+    join__init(join);
+    join->table = makeTableFromTree(tree->data.JOIN.table);
+    join->left = makeReferenceFromTree(tree->data.JOIN.left);
+    join->right = makeReferenceFromTree(tree->data.JOIN.right);
+    return join;
 }
 
 Where * makeWhereFromTree(Node * tree) {

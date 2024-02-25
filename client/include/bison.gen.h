@@ -76,20 +76,22 @@ extern int yydebug;
     TOKEN_UPDATE = 277,            /* TOKEN_UPDATE  */
     TOKEN_SET = 278,               /* TOKEN_SET  */
     TOKEN_VALUES = 279,            /* TOKEN_VALUES  */
-    TOKEN_LEQ = 280,               /* TOKEN_LEQ  */
-    TOKEN_GEQ = 281,               /* TOKEN_GEQ  */
-    TOKEN_LESS = 282,              /* TOKEN_LESS  */
-    TOKEN_GREATER = 283,           /* TOKEN_GREATER  */
-    TOKEN_EQ = 284,                /* TOKEN_EQ  */
-    TOKEN_NEQ = 285,               /* TOKEN_NEQ  */
-    TOKEN_OR = 286,                /* TOKEN_OR  */
-    TOKEN_AND = 287,               /* TOKEN_AND  */
-    TOKEN_NOT = 288,               /* TOKEN_NOT  */
-    TOKEN_END = 289,               /* TOKEN_END  */
-    TOKEN_INT_FIELD = 290,         /* TOKEN_INT_FIELD  */
-    TOKEN_FLOAT_FIELD = 291,       /* TOKEN_FLOAT_FIELD  */
-    TOKEN_STRING_FIELD = 292,      /* TOKEN_STRING_FIELD  */
-    TOKEN_BOOL_FIELD = 293         /* TOKEN_BOOL_FIELD  */
+    TOKEN_JOIN = 280,              /* TOKEN_JOIN  */
+    TOKEN_ON = 281,                /* TOKEN_ON  */
+    TOKEN_LEQ = 282,               /* TOKEN_LEQ  */
+    TOKEN_GEQ = 283,               /* TOKEN_GEQ  */
+    TOKEN_LESS = 284,              /* TOKEN_LESS  */
+    TOKEN_GREATER = 285,           /* TOKEN_GREATER  */
+    TOKEN_EQ = 286,                /* TOKEN_EQ  */
+    TOKEN_NEQ = 287,               /* TOKEN_NEQ  */
+    TOKEN_OR = 288,                /* TOKEN_OR  */
+    TOKEN_AND = 289,               /* TOKEN_AND  */
+    TOKEN_NOT = 290,               /* TOKEN_NOT  */
+    TOKEN_END = 291,               /* TOKEN_END  */
+    TOKEN_INT_FIELD = 292,         /* TOKEN_INT_FIELD  */
+    TOKEN_FLOAT_FIELD = 293,       /* TOKEN_FLOAT_FIELD  */
+    TOKEN_STRING_FIELD = 294,      /* TOKEN_STRING_FIELD  */
+    TOKEN_BOOL_FIELD = 295         /* TOKEN_BOOL_FIELD  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -109,7 +111,7 @@ union YYSTYPE
     logicType logicType;
     fieldType fieldType;
 
-#line 113 "./include/bison.gen.h"
+#line 115 "./include/bison.gen.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

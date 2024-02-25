@@ -93,10 +93,21 @@ message Column {
     string column = 1;
 }
 
+message JoinList {
+    repeated Join join = 1;
+}
+
+message Join {
+    Table table = 1;
+    Reference left = 2;
+    Reference right = 3;
+}
+
 message SelectExp {
     ReferenceList reference_list = 1;
     Table table = 2;
     Where where = 3;
+    JoinList join_list = 4;
 }
 
 message Where {

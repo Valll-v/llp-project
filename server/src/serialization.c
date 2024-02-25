@@ -197,7 +197,6 @@ Node * treeFromDelete(DeleteExp * delete_exp) {
     return node;
 }
 
-
 Node * treeFromSelect(SelectExp * select_exp) {
     if (select_exp == NULL) {
         return NULL;
@@ -207,6 +206,40 @@ Node * treeFromSelect(SelectExp * select_exp) {
     node->data.SELECT.table = treeFromTable(select_exp->table);
     node->data.SELECT.reference = treeFromReferenceList(select_exp->reference_list);
     node->data.SELECT.where = treeFromWhere(select_exp->where);
+    node->data.SELECT.join_list = treeFromJoinList(select_exp->join_list);
+    return node;
+}
+
+Node * treeFromJoinList(JoinList * join_list) {
+    if (join_list == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_JOIN_LIST;
+    Join ** joins = join_list->join;
+    size_t n_join = join_list->n_join;
+    Node * node_copy = node;
+    size_t pointer = 1;
+    node_copy->data.JOIN_LIST.join = treeFromJoin(joins[0]);
+    for (int k = pointer; k < n_join; ++k) {
+        Node * next_node = createNode();
+        next_node->type = NTOKEN_JOIN_LIST;
+        node_copy->data.JOIN_LIST.next = next_node;
+        node_copy = next_node;
+        node_copy->data.JOIN_LIST.join = treeFromJoin(joins[k]);
+    }
+    return node;
+}
+
+Node * treeFromJoin(Join * join) {
+    if (join == NULL) {
+        return NULL;
+    }
+    Node * node = createNode();
+    node->type = NTOKEN_JOIN;
+    node->data.JOIN.table = treeFromTable(join->table);
+    node->data.JOIN.left = treeFromReference(join->left);
+    node->data.JOIN.right = treeFromReference(join->right);
     return node;
 }
 

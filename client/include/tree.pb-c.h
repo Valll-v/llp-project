@@ -28,6 +28,8 @@ typedef struct Reference Reference;
 typedef struct ReferenceList ReferenceList;
 typedef struct Table Table;
 typedef struct Column Column;
+typedef struct JoinList JoinList;
+typedef struct Join Join;
 typedef struct SelectExp SelectExp;
 typedef struct Where Where;
 typedef struct DeleteExp DeleteExp;
@@ -251,16 +253,40 @@ struct  Column
     , (char *)protobuf_c_empty_string }
 
 
+struct  JoinList
+{
+  ProtobufCMessage base;
+  size_t n_join;
+  Join **join;
+};
+#define JOIN_LIST__INIT \
+ { PROTOBUF_C_MESSAGE_INIT (&join_list__descriptor) \
+    , 0,NULL }
+
+
+struct  Join
+{
+  ProtobufCMessage base;
+  Table *table;
+  Reference *left;
+  Reference *right;
+};
+#define JOIN__INIT \
+ { PROTOBUF_C_MESSAGE_INIT (&join__descriptor) \
+    , NULL, NULL, NULL }
+
+
 struct  SelectExp
 {
   ProtobufCMessage base;
   ReferenceList *reference_list;
   Table *table;
   Where *where;
+  JoinList *join_list;
 };
 #define SELECT_EXP__INIT \
  { PROTOBUF_C_MESSAGE_INIT (&select_exp__descriptor) \
-    , NULL, NULL, NULL }
+    , NULL, NULL, NULL, NULL }
 
 
 struct  Where
@@ -645,6 +671,44 @@ Column *
 void   column__free_unpacked
                      (Column *message,
                       ProtobufCAllocator *allocator);
+/* JoinList methods */
+void   join_list__init
+                     (JoinList         *message);
+size_t join_list__get_packed_size
+                     (const JoinList   *message);
+size_t join_list__pack
+                     (const JoinList   *message,
+                      uint8_t             *out);
+size_t join_list__pack_to_buffer
+                     (const JoinList   *message,
+                      ProtobufCBuffer     *buffer);
+JoinList *
+       join_list__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data);
+void   join_list__free_unpacked
+                     (JoinList *message,
+                      ProtobufCAllocator *allocator);
+/* Join methods */
+void   join__init
+                     (Join         *message);
+size_t join__get_packed_size
+                     (const Join   *message);
+size_t join__pack
+                     (const Join   *message,
+                      uint8_t             *out);
+size_t join__pack_to_buffer
+                     (const Join   *message,
+                      ProtobufCBuffer     *buffer);
+Join *
+       join__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data);
+void   join__free_unpacked
+                     (Join *message,
+                      ProtobufCAllocator *allocator);
 /* SelectExp methods */
 void   select_exp__init
                      (SelectExp         *message);
@@ -914,6 +978,12 @@ typedef void (*Table_Closure)
 typedef void (*Column_Closure)
                  (const Column *message,
                   void *closure_data);
+typedef void (*JoinList_Closure)
+                 (const JoinList *message,
+                  void *closure_data);
+typedef void (*Join_Closure)
+                 (const Join *message,
+                  void *closure_data);
 typedef void (*SelectExp_Closure)
                  (const SelectExp *message,
                   void *closure_data);
@@ -972,6 +1042,8 @@ extern const ProtobufCMessageDescriptor reference__descriptor;
 extern const ProtobufCMessageDescriptor reference_list__descriptor;
 extern const ProtobufCMessageDescriptor table__descriptor;
 extern const ProtobufCMessageDescriptor column__descriptor;
+extern const ProtobufCMessageDescriptor join_list__descriptor;
+extern const ProtobufCMessageDescriptor join__descriptor;
 extern const ProtobufCMessageDescriptor select_exp__descriptor;
 extern const ProtobufCMessageDescriptor where__descriptor;
 extern const ProtobufCMessageDescriptor delete_exp__descriptor;

@@ -47,3 +47,6 @@ Node * treeFromInsert(InsertExp *);
 
 Node * treeFromValuesList(ValuesList *);
 
+Node * treeFromJoin(Join *);
+
+Node * treeFromJoinList(JoinList *);

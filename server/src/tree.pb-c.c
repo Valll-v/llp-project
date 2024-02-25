@@ -592,6 +592,96 @@ void   column__free_unpacked
   assert(message->base.descriptor == &column__descriptor);
   protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
 }
+void   join_list__init
+                     (JoinList         *message)
+{
+  static const JoinList init_value = JOIN_LIST__INIT;
+  *message = init_value;
+}
+size_t join_list__get_packed_size
+                     (const JoinList *message)
+{
+  assert(message->base.descriptor == &join_list__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t join_list__pack
+                     (const JoinList *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &join_list__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t join_list__pack_to_buffer
+                     (const JoinList *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &join_list__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+JoinList *
+       join_list__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (JoinList *)
+     protobuf_c_message_unpack (&join_list__descriptor,
+                                allocator, len, data);
+}
+void   join_list__free_unpacked
+                     (JoinList *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &join_list__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   join__init
+                     (Join         *message)
+{
+  static const Join init_value = JOIN__INIT;
+  *message = init_value;
+}
+size_t join__get_packed_size
+                     (const Join *message)
+{
+  assert(message->base.descriptor == &join__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t join__pack
+                     (const Join *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &join__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t join__pack_to_buffer
+                     (const Join *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &join__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+Join *
+       join__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (Join *)
+     protobuf_c_message_unpack (&join__descriptor,
+                                allocator, len, data);
+}
+void   join__free_unpacked
+                     (Join *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &join__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
 void   select_exp__init
                      (SelectExp         *message)
 {
@@ -1795,7 +1885,109 @@ const ProtobufCMessageDescriptor column__descriptor =
   (ProtobufCMessageInit) column__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
-static const ProtobufCFieldDescriptor select_exp__field_descriptors[3] =
+static const ProtobufCFieldDescriptor join_list__field_descriptors[1] =
+{
+  {
+    "join",
+    1,
+    PROTOBUF_C_LABEL_REPEATED,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(JoinList, n_join),
+    offsetof(JoinList, join),
+    &join__descriptor,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned join_list__field_indices_by_name[] = {
+  0,   /* field[0] = join */
+};
+static const ProtobufCIntRange join_list__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 1 }
+};
+const ProtobufCMessageDescriptor join_list__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "JoinList",
+  "JoinList",
+  "JoinList",
+  "",
+  sizeof(JoinList),
+  1,
+  join_list__field_descriptors,
+  join_list__field_indices_by_name,
+  1,  join_list__number_ranges,
+  (ProtobufCMessageInit) join_list__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor join__field_descriptors[3] =
+{
+  {
+    "table",
+    1,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    0,   /* quantifier_offset */
+    offsetof(Join, table),
+    &table__descriptor,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "left",
+    2,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    0,   /* quantifier_offset */
+    offsetof(Join, left),
+    &reference__descriptor,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "right",
+    3,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    0,   /* quantifier_offset */
+    offsetof(Join, right),
+    &reference__descriptor,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned join__field_indices_by_name[] = {
+  1,   /* field[1] = left */
+  2,   /* field[2] = right */
+  0,   /* field[0] = table */
+};
+static const ProtobufCIntRange join__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 3 }
+};
+const ProtobufCMessageDescriptor join__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "Join",
+  "Join",
+  "Join",
+  "",
+  sizeof(Join),
+  3,
+  join__field_descriptors,
+  join__field_indices_by_name,
+  1,  join__number_ranges,
+  (ProtobufCMessageInit) join__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor select_exp__field_descriptors[4] =
 {
   {
     "reference_list",
@@ -1833,8 +2025,21 @@ static const ProtobufCFieldDescriptor select_exp__field_descriptors[3] =
     0,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
+  {
+    "join_list",
+    4,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    0,   /* quantifier_offset */
+    offsetof(SelectExp, join_list),
+    &join_list__descriptor,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
 };
 static const unsigned select_exp__field_indices_by_name[] = {
+  3,   /* field[3] = join_list */
   0,   /* field[0] = reference_list */
   1,   /* field[1] = table */
   2,   /* field[2] = where */
@@ -1842,7 +2047,7 @@ static const unsigned select_exp__field_indices_by_name[] = {
 static const ProtobufCIntRange select_exp__number_ranges[1 + 1] =
 {
   { 1, 0 },
-  { 0, 3 }
+  { 0, 4 }
 };
 const ProtobufCMessageDescriptor select_exp__descriptor =
 {
@@ -1852,7 +2057,7 @@ const ProtobufCMessageDescriptor select_exp__descriptor =
   "SelectExp",
   "",
   sizeof(SelectExp),
-  3,
+  4,
   select_exp__field_descriptors,
   select_exp__field_indices_by_name,
   1,  select_exp__number_ranges,

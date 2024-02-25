@@ -45,3 +45,7 @@ UpdateExp * makeUpdateFromTree(Node *);
 SetList * makeSetListFromTree(Node *);
 
 Set * makeSetFromTree(Node *);
+
+JoinList * makeJoinListFromTree(Node *);
+
+Join * makeJoinFromTree(Node *);

@@ -128,47 +128,51 @@ enum yysymbol_kind_t
   YYSYMBOL_TOKEN_UPDATE = 22,              /* TOKEN_UPDATE  */
   YYSYMBOL_TOKEN_SET = 23,                 /* TOKEN_SET  */
   YYSYMBOL_TOKEN_VALUES = 24,              /* TOKEN_VALUES  */
-  YYSYMBOL_TOKEN_LEQ = 25,                 /* TOKEN_LEQ  */
-  YYSYMBOL_TOKEN_GEQ = 26,                 /* TOKEN_GEQ  */
-  YYSYMBOL_TOKEN_LESS = 27,                /* TOKEN_LESS  */
-  YYSYMBOL_TOKEN_GREATER = 28,             /* TOKEN_GREATER  */
-  YYSYMBOL_TOKEN_EQ = 29,                  /* TOKEN_EQ  */
-  YYSYMBOL_TOKEN_NEQ = 30,                 /* TOKEN_NEQ  */
-  YYSYMBOL_TOKEN_OR = 31,                  /* TOKEN_OR  */
-  YYSYMBOL_TOKEN_AND = 32,                 /* TOKEN_AND  */
-  YYSYMBOL_TOKEN_NOT = 33,                 /* TOKEN_NOT  */
-  YYSYMBOL_TOKEN_END = 34,                 /* TOKEN_END  */
-  YYSYMBOL_TOKEN_INT_FIELD = 35,           /* TOKEN_INT_FIELD  */
-  YYSYMBOL_TOKEN_FLOAT_FIELD = 36,         /* TOKEN_FLOAT_FIELD  */
-  YYSYMBOL_TOKEN_STRING_FIELD = 37,        /* TOKEN_STRING_FIELD  */
-  YYSYMBOL_TOKEN_BOOL_FIELD = 38,          /* TOKEN_BOOL_FIELD  */
-  YYSYMBOL_YYACCEPT = 39,                  /* $accept  */
-  YYSYMBOL_QUERIES = 40,                   /* QUERIES  */
-  YYSYMBOL_QUERIES_LIST = 41,              /* QUERIES_LIST  */
-  YYSYMBOL_QUERY = 42,                     /* QUERY  */
-  YYSYMBOL_EXP = 43,                       /* EXP  */
-  YYSYMBOL_COMPARE = 44,                   /* COMPARE  */
-  YYSYMBOL_FIELD_TYPE = 45,                /* FIELD_TYPE  */
-  YYSYMBOL_LOGIC = 46,                     /* LOGIC  */
-  YYSYMBOL_SET = 47,                       /* SET  */
-  YYSYMBOL_SET_LIST = 48,                  /* SET_LIST  */
-  YYSYMBOL_UPDATE_EXP = 49,                /* UPDATE_EXP  */
-  YYSYMBOL_REFERENCE_LIST = 50,            /* REFERENCE_LIST  */
-  YYSYMBOL_TABLE = 51,                     /* TABLE  */
-  YYSYMBOL_COLUMN = 52,                    /* COLUMN  */
-  YYSYMBOL_REFERENCE = 53,                 /* REFERENCE  */
-  YYSYMBOL_SELECT_EXP = 54,                /* SELECT_EXP  */
-  YYSYMBOL_WHERE = 55,                     /* WHERE  */
-  YYSYMBOL_DELETE_EXP = 56,                /* DELETE_EXP  */
-  YYSYMBOL_FIELD_LIST = 57,                /* FIELD_LIST  */
-  YYSYMBOL_FIELD = 58,                     /* FIELD  */
-  YYSYMBOL_CREATE_EXP = 59,                /* CREATE_EXP  */
-  YYSYMBOL_VALUES_LIST = 60,               /* VALUES_LIST  */
-  YYSYMBOL_INSERT_EXP = 61,                /* INSERT_EXP  */
-  YYSYMBOL_DROP_EXP = 62,                  /* DROP_EXP  */
-  YYSYMBOL_LOGIC_EXP = 63,                 /* LOGIC_EXP  */
-  YYSYMBOL_COMPARE_EXP = 64,               /* COMPARE_EXP  */
-  YYSYMBOL_VALUE = 65                      /* VALUE  */
+  YYSYMBOL_TOKEN_JOIN = 25,                /* TOKEN_JOIN  */
+  YYSYMBOL_TOKEN_ON = 26,                  /* TOKEN_ON  */
+  YYSYMBOL_TOKEN_LEQ = 27,                 /* TOKEN_LEQ  */
+  YYSYMBOL_TOKEN_GEQ = 28,                 /* TOKEN_GEQ  */
+  YYSYMBOL_TOKEN_LESS = 29,                /* TOKEN_LESS  */
+  YYSYMBOL_TOKEN_GREATER = 30,             /* TOKEN_GREATER  */
+  YYSYMBOL_TOKEN_EQ = 31,                  /* TOKEN_EQ  */
+  YYSYMBOL_TOKEN_NEQ = 32,                 /* TOKEN_NEQ  */
+  YYSYMBOL_TOKEN_OR = 33,                  /* TOKEN_OR  */
+  YYSYMBOL_TOKEN_AND = 34,                 /* TOKEN_AND  */
+  YYSYMBOL_TOKEN_NOT = 35,                 /* TOKEN_NOT  */
+  YYSYMBOL_TOKEN_END = 36,                 /* TOKEN_END  */
+  YYSYMBOL_TOKEN_INT_FIELD = 37,           /* TOKEN_INT_FIELD  */
+  YYSYMBOL_TOKEN_FLOAT_FIELD = 38,         /* TOKEN_FLOAT_FIELD  */
+  YYSYMBOL_TOKEN_STRING_FIELD = 39,        /* TOKEN_STRING_FIELD  */
+  YYSYMBOL_TOKEN_BOOL_FIELD = 40,          /* TOKEN_BOOL_FIELD  */
+  YYSYMBOL_YYACCEPT = 41,                  /* $accept  */
+  YYSYMBOL_QUERIES = 42,                   /* QUERIES  */
+  YYSYMBOL_QUERIES_LIST = 43,              /* QUERIES_LIST  */
+  YYSYMBOL_QUERY = 44,                     /* QUERY  */
+  YYSYMBOL_EXP = 45,                       /* EXP  */
+  YYSYMBOL_COMPARE = 46,                   /* COMPARE  */
+  YYSYMBOL_FIELD_TYPE = 47,                /* FIELD_TYPE  */
+  YYSYMBOL_LOGIC = 48,                     /* LOGIC  */
+  YYSYMBOL_SET = 49,                       /* SET  */
+  YYSYMBOL_SET_LIST = 50,                  /* SET_LIST  */
+  YYSYMBOL_UPDATE_EXP = 51,                /* UPDATE_EXP  */
+  YYSYMBOL_REFERENCE_LIST = 52,            /* REFERENCE_LIST  */
+  YYSYMBOL_TABLE = 53,                     /* TABLE  */
+  YYSYMBOL_COLUMN = 54,                    /* COLUMN  */
+  YYSYMBOL_REFERENCE = 55,                 /* REFERENCE  */
+  YYSYMBOL_SELECT_EXP = 56,                /* SELECT_EXP  */
+  YYSYMBOL_JOIN_LIST = 57,                 /* JOIN_LIST  */
+  YYSYMBOL_JOIN = 58,                      /* JOIN  */
+  YYSYMBOL_WHERE = 59,                     /* WHERE  */
+  YYSYMBOL_DELETE_EXP = 60,                /* DELETE_EXP  */
+  YYSYMBOL_FIELD_LIST = 61,                /* FIELD_LIST  */
+  YYSYMBOL_FIELD = 62,                     /* FIELD  */
+  YYSYMBOL_CREATE_EXP = 63,                /* CREATE_EXP  */
+  YYSYMBOL_VALUES_LIST = 64,               /* VALUES_LIST  */
+  YYSYMBOL_INSERT_EXP = 65,                /* INSERT_EXP  */
+  YYSYMBOL_DROP_EXP = 66,                  /* DROP_EXP  */
+  YYSYMBOL_LOGIC_EXP = 67,                 /* LOGIC_EXP  */
+  YYSYMBOL_COMPARE_EXP = 68,               /* COMPARE_EXP  */
+  YYSYMBOL_VALUE = 69                      /* VALUE  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -496,19 +500,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  25
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   91
+#define YYLAST   108
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  39
+#define YYNTOKENS  41
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  27
+#define YYNNTS  29
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  58
+#define YYNRULES  61
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  102
+#define YYNSTATES  111
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   293
+#define YYMAXUTOK   295
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -551,19 +555,20 @@ static const yytype_int8 yytranslate[] =
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38
+      35,    36,    37,    38,    39,    40
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    46,    46,    46,    51,    53,    63,    64,    65,    66,
-      67,    68,    72,    73,    74,    75,    79,    80,    81,    82,
-      83,    84,    87,    88,    89,    90,    94,    95,    96,    99,
-     106,   113,   120,   130,   137,   144,   150,   156,   163,   173,
-     175,   183,   192,   199,   206,   213,   221,   228,   235,   243,
-     251,   254,   262,   272,   275,   284,   290,   296,   302
+       0,    47,    47,    47,    52,    54,    64,    65,    66,    67,
+      68,    69,    73,    74,    75,    76,    80,    81,    82,    83,
+      84,    85,    88,    89,    90,    91,    95,    96,    97,   100,
+     107,   114,   121,   131,   138,   145,   151,   157,   164,   173,
+     176,   183,   192,   194,   202,   211,   218,   225,   232,   240,
+     247,   254,   262,   270,   273,   281,   291,   294,   303,   309,
+     315,   321
 };
 #endif
 
@@ -584,15 +589,16 @@ static const char *const yytname[] =
   "TOKEN_CLOSE", "TOKEN_DOT", "TOKEN_COMMA", "TOKEN_ASSIGNMENT",
   "TOKEN_SELECT", "TOKEN_FROM", "TOKEN_WHERE", "TOKEN_CREATE",
   "TOKEN_DROP", "TOKEN_TABLE", "TOKEN_DELETE", "TOKEN_INSERT",
-  "TOKEN_INTO", "TOKEN_UPDATE", "TOKEN_SET", "TOKEN_VALUES", "TOKEN_LEQ",
-  "TOKEN_GEQ", "TOKEN_LESS", "TOKEN_GREATER", "TOKEN_EQ", "TOKEN_NEQ",
-  "TOKEN_OR", "TOKEN_AND", "TOKEN_NOT", "TOKEN_END", "TOKEN_INT_FIELD",
-  "TOKEN_FLOAT_FIELD", "TOKEN_STRING_FIELD", "TOKEN_BOOL_FIELD", "$accept",
-  "QUERIES", "QUERIES_LIST", "QUERY", "EXP", "COMPARE", "FIELD_TYPE",
-  "LOGIC", "SET", "SET_LIST", "UPDATE_EXP", "REFERENCE_LIST", "TABLE",
-  "COLUMN", "REFERENCE", "SELECT_EXP", "WHERE", "DELETE_EXP", "FIELD_LIST",
-  "FIELD", "CREATE_EXP", "VALUES_LIST", "INSERT_EXP", "DROP_EXP",
-  "LOGIC_EXP", "COMPARE_EXP", "VALUE", YY_NULLPTR
+  "TOKEN_INTO", "TOKEN_UPDATE", "TOKEN_SET", "TOKEN_VALUES", "TOKEN_JOIN",
+  "TOKEN_ON", "TOKEN_LEQ", "TOKEN_GEQ", "TOKEN_LESS", "TOKEN_GREATER",
+  "TOKEN_EQ", "TOKEN_NEQ", "TOKEN_OR", "TOKEN_AND", "TOKEN_NOT",
+  "TOKEN_END", "TOKEN_INT_FIELD", "TOKEN_FLOAT_FIELD",
+  "TOKEN_STRING_FIELD", "TOKEN_BOOL_FIELD", "$accept", "QUERIES",
+  "QUERIES_LIST", "QUERY", "EXP", "COMPARE", "FIELD_TYPE", "LOGIC", "SET",
+  "SET_LIST", "UPDATE_EXP", "REFERENCE_LIST", "TABLE", "COLUMN",
+  "REFERENCE", "SELECT_EXP", "JOIN_LIST", "JOIN", "WHERE", "DELETE_EXP",
+  "FIELD_LIST", "FIELD", "CREATE_EXP", "VALUES_LIST", "INSERT_EXP",
+  "DROP_EXP", "LOGIC_EXP", "COMPARE_EXP", "VALUE", YY_NULLPTR
 };
 
 static const char *
@@ -616,17 +622,18 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      41,     7,    -2,     3,     1,     9,     7,    31,   -62,    21,
-     -62,   -62,   -62,   -62,   -62,   -62,   -62,    18,    26,    45,
-       7,     7,     7,     7,    14,   -62,    41,     7,    52,     7,
-      54,   -62,    58,    50,    52,   -62,    58,   -62,   -62,   -62,
-      52,     2,   -62,    67,    65,    58,    66,   -62,   -10,    68,
-      69,   -62,   -62,   -62,   -62,     2,    71,    39,   -62,   -62,
-     -62,   -62,    37,    52,   -62,    37,   -62,   -62,   -62,   -62,
-     -62,   -62,    52,    39,    72,    73,     2,   -62,   -62,   -62,
-     -62,   -62,   -62,   -62,   -62,   -62,     2,     2,    74,    75,
-     -62,   -62,   -62,   -62,   -62,    20,    39,    39,   -62,    37,
-     -62,   -62
+      35,    -3,    -6,     2,     1,     0,    -3,    22,   -62,     5,
+     -62,   -62,   -62,   -62,   -62,   -62,   -62,    23,    26,    31,
+      -3,    -3,    -3,    -3,    15,   -62,    35,    -3,    39,    -3,
+      41,   -62,    32,    29,    39,   -62,    33,   -62,   -62,   -62,
+      39,    27,   -62,    48,    49,    32,    47,    -3,    32,    33,
+     -30,    52,    70,   -62,   -62,   -62,   -62,    27,    74,    45,
+     -62,   -62,   -62,   -62,    21,    39,   -62,    21,    57,   -62,
+     -62,   -62,   -62,   -62,   -62,   -62,   -62,    39,    45,    75,
+      76,    27,   -62,   -62,   -62,   -62,   -62,   -62,   -62,   -62,
+     -62,    27,    27,    77,    78,   -62,   -62,    -3,   -62,   -62,
+     -62,    36,    45,    45,   -62,    21,    79,   -62,   -62,    -3,
+     -62
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -637,30 +644,31 @@ static const yytype_int8 yydefact[] =
        2,     0,     0,     0,     0,     0,     0,     0,     3,     0,
        7,     6,     9,     8,    10,    11,    35,     0,     0,    34,
        0,     0,     0,     0,     0,     1,     4,     0,     0,     0,
-       0,    49,    39,     0,     0,     5,    39,    36,    37,    33,
-       0,     0,    41,     0,    31,    39,     0,    38,     0,     0,
-      43,    55,    56,    57,    58,     0,     0,    40,    15,    14,
-      13,    12,     0,     0,    32,     0,    22,    23,    24,    25,
-      44,    45,     0,     0,    14,    13,     0,    16,    17,    18,
-      19,    20,    21,    26,    27,    28,     0,     0,     0,    47,
-      30,    29,    42,    50,    53,     0,    54,    52,    48,     0,
-      51,    46
+       0,    52,    42,     0,     0,     5,    39,    36,    37,    33,
+       0,     0,    44,     0,    31,    42,     0,     0,    42,    39,
+       0,     0,    46,    58,    59,    60,    61,     0,     0,    43,
+      15,    14,    13,    12,     0,     0,    32,     0,     0,    38,
+      40,    22,    23,    24,    25,    47,    48,     0,     0,    14,
+      13,     0,    16,    17,    18,    19,    20,    21,    26,    27,
+      28,     0,     0,     0,    50,    30,    29,     0,    45,    53,
+      56,     0,    57,    55,    51,     0,     0,    54,    49,     0,
+      41
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -62,   -62,    59,   -62,   -53,   -62,   -62,   -62,   -62,    24,
-     -62,    55,    -3,   -28,    10,   -62,   -23,   -62,    16,   -62,
-     -62,    -9,   -62,   -62,    34,    36,   -61
+     -62,   -62,    61,   -62,   -52,   -62,   -62,   -62,   -62,    25,
+     -62,    59,    -4,   -27,    -1,   -62,    43,   -62,   -34,   -62,
+      16,   -62,   -62,   -11,   -62,   -62,    38,    40,   -61
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     7,     8,     9,    57,    86,    70,    87,    44,    45,
-      10,    17,    18,    46,    58,    11,    42,    12,    49,    50,
-      13,    88,    14,    15,    59,    60,    61
+       0,     7,     8,     9,    59,    91,    75,    92,    44,    45,
+      10,    17,    18,    46,    60,    11,    48,    49,    42,    12,
+      51,    52,    13,    93,    14,    15,    61,    62,    63
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -668,58 +676,62 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      38,    89,    73,    24,    91,    51,    52,    53,    54,    16,
-      55,    19,    48,    47,    16,    22,    20,    30,    31,    32,
-      33,    21,    64,    95,    36,    66,    67,    68,    69,   100,
-      23,    25,    27,    96,    97,    56,    28,    34,    89,    19,
-      51,    52,    53,    54,    48,    77,    78,    79,    80,    81,
-      82,    83,    84,    85,     1,    26,    29,     2,     3,    37,
-       4,     5,    40,     6,    77,    78,    79,    80,    81,    82,
-      83,    84,    85,    41,    43,    62,    63,    71,    65,    76,
-      72,    93,    94,    98,    39,    35,    99,    90,    92,    74,
-     101,    75
+      19,    38,    24,    94,    16,    78,    96,    71,    72,    73,
+      74,    66,    20,    50,    69,    22,    30,    31,    32,    33,
+      21,    23,    25,    36,    53,    54,    55,    56,    19,   101,
+      53,    54,    55,    56,    16,    57,    28,    27,    34,   102,
+     103,    26,    29,    68,    94,   107,    37,    41,     1,    40,
+      50,     2,     3,    43,     4,     5,    64,     6,    47,    67,
+      65,    76,    58,    82,    83,    84,    85,    86,    87,    88,
+      89,    90,    82,    83,    84,    85,    86,    87,    88,    89,
+      90,    77,    81,    97,    99,   100,   104,    35,    39,   105,
+      95,   109,    70,    98,   108,    79,   106,    80,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,   110
 };
 
 static const yytype_int8 yycheck[] =
 {
-      28,    62,    55,     6,    65,     3,     4,     5,     6,     7,
-       8,     1,    40,    36,     7,    14,    18,    20,    21,    22,
-      23,    18,    45,    76,    27,    35,    36,    37,    38,     9,
-      21,     0,    14,    86,    87,    33,    10,    23,    99,    29,
-       3,     4,     5,     6,    72,    25,    26,    27,    28,    29,
-      30,    31,    32,    33,    13,    34,    11,    16,    17,     7,
-      19,    20,     8,    22,    25,    26,    27,    28,    29,    30,
-      31,    32,    33,    15,    24,     8,    11,     9,    12,     8,
-      11,     9,     9,     9,    29,    26,    11,    63,    72,    55,
-      99,    55
+       1,    28,     6,    64,     7,    57,    67,    37,    38,    39,
+      40,    45,    18,    40,    48,    14,    20,    21,    22,    23,
+      18,    21,     0,    27,     3,     4,     5,     6,    29,    81,
+       3,     4,     5,     6,     7,     8,    10,    14,    23,    91,
+      92,    36,    11,    47,   105,     9,     7,    15,    13,     8,
+      77,    16,    17,    24,    19,    20,     8,    22,    25,    12,
+      11,     9,    35,    27,    28,    29,    30,    31,    32,    33,
+      34,    35,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    11,     8,    26,     9,     9,     9,    26,    29,    11,
+      65,    12,    49,    77,   105,    57,    97,    57,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,   109
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    13,    16,    17,    19,    20,    22,    40,    41,    42,
-      49,    54,    56,    59,    61,    62,     7,    50,    51,    53,
-      18,    18,    14,    21,    51,     0,    34,    14,    10,    11,
-      51,    51,    51,    51,    23,    41,    51,     7,    52,    50,
-       8,    15,    55,    24,    47,    48,    52,    55,    52,    57,
-      58,     3,     4,     5,     6,     8,    33,    43,    53,    63,
-      64,    65,     8,    11,    55,    12,    35,    36,    37,    38,
-      45,     9,    11,    43,    63,    64,     8,    25,    26,    27,
-      28,    29,    30,    31,    32,    33,    44,    46,    60,    65,
-      48,    65,    57,     9,     9,    43,    43,    43,     9,    11,
-       9,    60
+       0,    13,    16,    17,    19,    20,    22,    42,    43,    44,
+      51,    56,    60,    63,    65,    66,     7,    52,    53,    55,
+      18,    18,    14,    21,    53,     0,    36,    14,    10,    11,
+      53,    53,    53,    53,    23,    43,    53,     7,    54,    52,
+       8,    15,    59,    24,    49,    50,    54,    25,    57,    58,
+      54,    61,    62,     3,     4,     5,     6,     8,    35,    45,
+      55,    67,    68,    69,     8,    11,    59,    12,    53,    59,
+      57,    37,    38,    39,    40,    47,     9,    11,    45,    67,
+      68,     8,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    46,    48,    64,    69,    50,    69,    26,    61,     9,
+       9,    45,    45,    45,     9,    11,    55,     9,    64,    12,
+      55
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    39,    40,    40,    41,    41,    42,    42,    42,    42,
-      42,    42,    43,    43,    43,    43,    44,    44,    44,    44,
-      44,    44,    45,    45,    45,    45,    46,    46,    46,    47,
-      48,    48,    49,    50,    50,    51,    52,    53,    54,    55,
-      55,    56,    57,    57,    58,    59,    60,    60,    61,    62,
-      63,    63,    63,    64,    64,    65,    65,    65,    65
+       0,    41,    42,    42,    43,    43,    44,    44,    44,    44,
+      44,    44,    45,    45,    45,    45,    46,    46,    46,    46,
+      46,    46,    47,    47,    47,    47,    48,    48,    48,    49,
+      50,    50,    51,    52,    52,    53,    54,    55,    56,    57,
+      57,    58,    59,    59,    60,    61,    61,    62,    63,    64,
+      64,    65,    66,    67,    67,    67,    68,    68,    69,    69,
+      69,    69
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -728,9 +740,10 @@ static const yytype_int8 yyr2[] =
        0,     2,     0,     1,     0,     3,     1,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     3,
-       3,     1,     5,     3,     1,     1,     1,     3,     5,     0,
-       2,     4,     3,     1,     2,     6,     3,     1,     7,     3,
-       3,     4,     3,     3,     3,     1,     1,     1,     1
+       3,     1,     5,     3,     1,     1,     1,     3,     6,     0,
+       2,     6,     0,     2,     4,     3,     1,     2,     6,     3,
+       1,     7,     3,     3,     4,     3,     3,     3,     1,     1,
+       1,     1
 };
 
 
@@ -1196,23 +1209,23 @@ yyreduce:
   switch (yyn)
     {
   case 3: /* QUERIES: QUERIES_LIST  */
-#line 46 "parser/bison.y"
+#line 47 "parser/bison.y"
                         {
     *tree = (yyvsp[0].node);
 }
-#line 1204 "src/bison.gen.c"
+#line 1217 "src/bison.gen.c"
     break;
 
   case 4: /* QUERIES_LIST: %empty  */
-#line 51 "parser/bison.y"
+#line 52 "parser/bison.y"
                {
     (yyval.node) = NULL;
 }
-#line 1212 "src/bison.gen.c"
+#line 1225 "src/bison.gen.c"
     break;
 
   case 5: /* QUERIES_LIST: QUERY TOKEN_END QUERIES_LIST  */
-#line 53 "parser/bison.y"
+#line 54 "parser/bison.y"
                                  {
     Node *node = createNode();
     node->type = NTOKEN_QUERIES_LIST;
@@ -1220,11 +1233,11 @@ yyreduce:
     node->data.QUERIES_LIST.next = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1224 "src/bison.gen.c"
+#line 1237 "src/bison.gen.c"
     break;
 
   case 29: /* SET: COLUMN TOKEN_ASSIGNMENT VALUE  */
-#line 99 "parser/bison.y"
+#line 100 "parser/bison.y"
                                    {
     Node *node = createNode();
     node->type = NTOKEN_SET;
@@ -1232,11 +1245,11 @@ yyreduce:
     node->data.SET.value = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1236 "src/bison.gen.c"
+#line 1249 "src/bison.gen.c"
     break;
 
   case 30: /* SET_LIST: SET TOKEN_COMMA SET_LIST  */
-#line 106 "parser/bison.y"
+#line 107 "parser/bison.y"
                                    {
     Node *node = createNode();
     node->type = NTOKEN_SET_LIST;
@@ -1244,11 +1257,11 @@ yyreduce:
     node->data.SET_LIST.next = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1248 "src/bison.gen.c"
+#line 1261 "src/bison.gen.c"
     break;
 
   case 31: /* SET_LIST: SET  */
-#line 113 "parser/bison.y"
+#line 114 "parser/bison.y"
     {
     Node *node = createNode();
     node->type = NTOKEN_SET_LIST;
@@ -1256,11 +1269,11 @@ yyreduce:
     node->data.SET_LIST.next = NULL;
     (yyval.node) = node;
 }
-#line 1260 "src/bison.gen.c"
+#line 1273 "src/bison.gen.c"
     break;
 
   case 32: /* UPDATE_EXP: TOKEN_UPDATE TABLE TOKEN_SET SET_LIST WHERE  */
-#line 120 "parser/bison.y"
+#line 121 "parser/bison.y"
                                                         {
     Node *node = createNode();
     node->type = NTOKEN_UPDATE;
@@ -1269,11 +1282,11 @@ yyreduce:
     node->data.UPDATE.where = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1273 "src/bison.gen.c"
+#line 1286 "src/bison.gen.c"
     break;
 
   case 33: /* REFERENCE_LIST: REFERENCE TOKEN_COMMA REFERENCE_LIST  */
-#line 130 "parser/bison.y"
+#line 131 "parser/bison.y"
                                                      {
     Node *node = createNode();
     node->type = NTOKEN_REFERENCE_LIST;
@@ -1281,11 +1294,11 @@ yyreduce:
     node->data.REFERENCE_LIST.next = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1285 "src/bison.gen.c"
+#line 1298 "src/bison.gen.c"
     break;
 
   case 34: /* REFERENCE_LIST: REFERENCE  */
-#line 137 "parser/bison.y"
+#line 138 "parser/bison.y"
           {
     Node *node = createNode();
     node->type = NTOKEN_REFERENCE_LIST;
@@ -1293,33 +1306,33 @@ yyreduce:
     node->data.REFERENCE_LIST.next = NULL;
     (yyval.node) = node;
 }
-#line 1297 "src/bison.gen.c"
+#line 1310 "src/bison.gen.c"
     break;
 
   case 35: /* TABLE: TOKEN_NAME  */
-#line 144 "parser/bison.y"
+#line 145 "parser/bison.y"
                    {
     Node *node = createNode();
     node->type = NTOKEN_TABLE;
     node->data.TABLE.table = stripString((yyvsp[0].stringValue));
     (yyval.node) = node;
 }
-#line 1308 "src/bison.gen.c"
+#line 1321 "src/bison.gen.c"
     break;
 
   case 36: /* COLUMN: TOKEN_NAME  */
-#line 150 "parser/bison.y"
+#line 151 "parser/bison.y"
                     {
     Node *node = createNode();
     node->type = NTOKEN_COLUMN;
     node->data.COLUMN.column = stripString((yyvsp[0].stringValue));
     (yyval.node) = node;
 }
-#line 1319 "src/bison.gen.c"
+#line 1332 "src/bison.gen.c"
     break;
 
   case 37: /* REFERENCE: TABLE TOKEN_DOT COLUMN  */
-#line 156 "parser/bison.y"
+#line 157 "parser/bison.y"
                                   {
     Node *node = createNode();
     node->type = NTOKEN_REFERENCE;
@@ -1327,43 +1340,77 @@ yyreduce:
     node->data.REFERENCE.column = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1331 "src/bison.gen.c"
-    break;
-
-  case 38: /* SELECT_EXP: TOKEN_SELECT REFERENCE_LIST TOKEN_FROM TABLE WHERE  */
-#line 163 "parser/bison.y"
-                                                               {
-    Node *node = createNode();
-    node->type = NTOKEN_SELECT;
-    node->data.SELECT.reference = (yyvsp[-3].node);
-    node->data.SELECT.table = (yyvsp[-1].node);
-    node->data.SELECT.where = (yyvsp[0].node);
-    (yyval.node) = node;
-}
 #line 1344 "src/bison.gen.c"
     break;
 
-  case 39: /* WHERE: %empty  */
+  case 38: /* SELECT_EXP: TOKEN_SELECT REFERENCE_LIST TOKEN_FROM TABLE JOIN_LIST WHERE  */
+#line 164 "parser/bison.y"
+                                                                         {
+    Node *node = createNode();
+    node->type = NTOKEN_SELECT;
+    node->data.SELECT.reference = (yyvsp[-4].node);
+    node->data.SELECT.table = (yyvsp[-2].node);
+    node->data.SELECT.join_list = (yyvsp[-1].node);
+    node->data.SELECT.where = (yyvsp[0].node);
+    (yyval.node) = node;
+}
+#line 1358 "src/bison.gen.c"
+    break;
+
+  case 39: /* JOIN_LIST: %empty  */
 #line 173 "parser/bison.y"
+           {
+    (yyval.node) = NULL;
+}
+#line 1366 "src/bison.gen.c"
+    break;
+
+  case 40: /* JOIN_LIST: JOIN JOIN_LIST  */
+#line 176 "parser/bison.y"
+               {
+    Node *node = createNode();
+    node->type = NTOKEN_JOIN_LIST;
+    node->data.JOIN_LIST.join = (yyvsp[-1].node);
+    node->data.JOIN_LIST.next = (yyvsp[0].node);
+    (yyval.node) = node;
+}
+#line 1378 "src/bison.gen.c"
+    break;
+
+  case 41: /* JOIN: TOKEN_JOIN TABLE TOKEN_ON REFERENCE TOKEN_ASSIGNMENT REFERENCE  */
+#line 183 "parser/bison.y"
+                                                                     {
+    Node *node = createNode();
+    node->type = NTOKEN_JOIN;
+    node->data.JOIN.table = (yyvsp[-4].node);
+    node->data.JOIN.left = (yyvsp[-2].node);
+    node->data.JOIN.right = (yyvsp[0].node);
+    (yyval.node) = node;
+}
+#line 1391 "src/bison.gen.c"
+    break;
+
+  case 42: /* WHERE: %empty  */
+#line 192 "parser/bison.y"
        {
     (yyval.node) = NULL;
 }
-#line 1352 "src/bison.gen.c"
+#line 1399 "src/bison.gen.c"
     break;
 
-  case 40: /* WHERE: TOKEN_WHERE EXP  */
-#line 175 "parser/bison.y"
+  case 43: /* WHERE: TOKEN_WHERE EXP  */
+#line 194 "parser/bison.y"
                     {
     Node *node = createNode();
     node->type = NTOKEN_WHERE;
     node->data.WHERE.logic = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1363 "src/bison.gen.c"
+#line 1410 "src/bison.gen.c"
     break;
 
-  case 41: /* DELETE_EXP: TOKEN_DELETE TOKEN_FROM TABLE WHERE  */
-#line 183 "parser/bison.y"
+  case 44: /* DELETE_EXP: TOKEN_DELETE TOKEN_FROM TABLE WHERE  */
+#line 202 "parser/bison.y"
                                                 {
     Node *node = createNode();
     node->type = NTOKEN_DELETE;
@@ -1371,11 +1418,11 @@ yyreduce:
     node->data.DELETE.where = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1375 "src/bison.gen.c"
+#line 1422 "src/bison.gen.c"
     break;
 
-  case 42: /* FIELD_LIST: FIELD TOKEN_COMMA FIELD_LIST  */
-#line 192 "parser/bison.y"
+  case 45: /* FIELD_LIST: FIELD TOKEN_COMMA FIELD_LIST  */
+#line 211 "parser/bison.y"
                                          {
     Node *node = createNode();
     node->type = NTOKEN_FIELD_LIST;
@@ -1383,11 +1430,11 @@ yyreduce:
     node->data.FIELD_LIST.next = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1387 "src/bison.gen.c"
+#line 1434 "src/bison.gen.c"
     break;
 
-  case 43: /* FIELD_LIST: FIELD  */
-#line 199 "parser/bison.y"
+  case 46: /* FIELD_LIST: FIELD  */
+#line 218 "parser/bison.y"
       {
     Node *node = createNode();
     node->type = NTOKEN_FIELD_LIST;
@@ -1395,11 +1442,11 @@ yyreduce:
     node->data.FIELD_LIST.next = NULL;
     (yyval.node) = node;
 }
-#line 1399 "src/bison.gen.c"
+#line 1446 "src/bison.gen.c"
     break;
 
-  case 44: /* FIELD: COLUMN FIELD_TYPE  */
-#line 206 "parser/bison.y"
+  case 47: /* FIELD: COLUMN FIELD_TYPE  */
+#line 225 "parser/bison.y"
                          {
     Node *node = createNode();
     node->type = NTOKEN_FIELD;
@@ -1407,11 +1454,11 @@ yyreduce:
     node->data.FIELD.type = (yyvsp[0].fieldType);
     (yyval.node) = node;
 }
-#line 1411 "src/bison.gen.c"
+#line 1458 "src/bison.gen.c"
     break;
 
-  case 45: /* CREATE_EXP: TOKEN_CREATE TOKEN_TABLE TABLE TOKEN_OPEN FIELD_LIST TOKEN_CLOSE  */
-#line 213 "parser/bison.y"
+  case 48: /* CREATE_EXP: TOKEN_CREATE TOKEN_TABLE TABLE TOKEN_OPEN FIELD_LIST TOKEN_CLOSE  */
+#line 232 "parser/bison.y"
                                                                              {
     Node *node = createNode();
     node->type = NTOKEN_CREATE;
@@ -1419,11 +1466,11 @@ yyreduce:
     node->data.CREATE.field_list = (yyvsp[-1].node);
     (yyval.node) = node;
 }
-#line 1423 "src/bison.gen.c"
+#line 1470 "src/bison.gen.c"
     break;
 
-  case 46: /* VALUES_LIST: VALUE TOKEN_COMMA VALUES_LIST  */
-#line 221 "parser/bison.y"
+  case 49: /* VALUES_LIST: VALUE TOKEN_COMMA VALUES_LIST  */
+#line 240 "parser/bison.y"
                                            {
     Node *node = createNode();
     node->type = NTOKEN_VALUES_LIST;
@@ -1431,11 +1478,11 @@ yyreduce:
     node->data.VALUES_LIST.next = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1435 "src/bison.gen.c"
+#line 1482 "src/bison.gen.c"
     break;
 
-  case 47: /* VALUES_LIST: VALUE  */
-#line 228 "parser/bison.y"
+  case 50: /* VALUES_LIST: VALUE  */
+#line 247 "parser/bison.y"
       {
     Node *node = createNode();
     node->type = NTOKEN_VALUES_LIST;
@@ -1443,11 +1490,11 @@ yyreduce:
     node->data.VALUES_LIST.next = NULL;
     (yyval.node) = node;
 }
-#line 1447 "src/bison.gen.c"
+#line 1494 "src/bison.gen.c"
     break;
 
-  case 48: /* INSERT_EXP: TOKEN_INSERT TOKEN_INTO TABLE TOKEN_VALUES TOKEN_OPEN VALUES_LIST TOKEN_CLOSE  */
-#line 235 "parser/bison.y"
+  case 51: /* INSERT_EXP: TOKEN_INSERT TOKEN_INTO TABLE TOKEN_VALUES TOKEN_OPEN VALUES_LIST TOKEN_CLOSE  */
+#line 254 "parser/bison.y"
                                                                                           {
     Node *node = createNode();
     node->type = NTOKEN_INSERT;
@@ -1455,30 +1502,30 @@ yyreduce:
     node->data.INSERT.values_list = (yyvsp[-1].node);
     (yyval.node) = node;
 }
-#line 1459 "src/bison.gen.c"
+#line 1506 "src/bison.gen.c"
     break;
 
-  case 49: /* DROP_EXP: TOKEN_DROP TOKEN_TABLE TABLE  */
-#line 243 "parser/bison.y"
+  case 52: /* DROP_EXP: TOKEN_DROP TOKEN_TABLE TABLE  */
+#line 262 "parser/bison.y"
                                        {
     Node *node = createNode();
     node->type = NTOKEN_DROP;
     node->data.DROP.table = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1470 "src/bison.gen.c"
+#line 1517 "src/bison.gen.c"
     break;
 
-  case 50: /* LOGIC_EXP: TOKEN_OPEN LOGIC_EXP TOKEN_CLOSE  */
-#line 251 "parser/bison.y"
+  case 53: /* LOGIC_EXP: TOKEN_OPEN LOGIC_EXP TOKEN_CLOSE  */
+#line 270 "parser/bison.y"
                                             {
     (yyval.node) = (yyvsp[-1].node);
 }
-#line 1478 "src/bison.gen.c"
+#line 1525 "src/bison.gen.c"
     break;
 
-  case 51: /* LOGIC_EXP: TOKEN_NOT TOKEN_OPEN EXP TOKEN_CLOSE  */
-#line 254 "parser/bison.y"
+  case 54: /* LOGIC_EXP: TOKEN_NOT TOKEN_OPEN EXP TOKEN_CLOSE  */
+#line 273 "parser/bison.y"
                                      {
     Node *node = createNode();
     node->type = NTOKEN_LOGIC;
@@ -1487,11 +1534,11 @@ yyreduce:
     node->data.LOGIC.right = NULL;
     (yyval.node) = node;
 }
-#line 1491 "src/bison.gen.c"
+#line 1538 "src/bison.gen.c"
     break;
 
-  case 52: /* LOGIC_EXP: EXP LOGIC EXP  */
-#line 262 "parser/bison.y"
+  case 55: /* LOGIC_EXP: EXP LOGIC EXP  */
+#line 281 "parser/bison.y"
               {
     Node *node = createNode();
     node->type = NTOKEN_LOGIC;
@@ -1500,19 +1547,19 @@ yyreduce:
     node->data.LOGIC.right = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1504 "src/bison.gen.c"
+#line 1551 "src/bison.gen.c"
     break;
 
-  case 53: /* COMPARE_EXP: TOKEN_OPEN COMPARE_EXP TOKEN_CLOSE  */
-#line 272 "parser/bison.y"
+  case 56: /* COMPARE_EXP: TOKEN_OPEN COMPARE_EXP TOKEN_CLOSE  */
+#line 291 "parser/bison.y"
                                                 {
     (yyval.node) = (yyvsp[-1].node);
 }
-#line 1512 "src/bison.gen.c"
+#line 1559 "src/bison.gen.c"
     break;
 
-  case 54: /* COMPARE_EXP: EXP COMPARE EXP  */
-#line 275 "parser/bison.y"
+  case 57: /* COMPARE_EXP: EXP COMPARE EXP  */
+#line 294 "parser/bison.y"
                 {
     Node *node = createNode();
     node->type = NTOKEN_COMPARE;
@@ -1521,55 +1568,55 @@ yyreduce:
     node->data.COMPARE.right = (yyvsp[0].node);
     (yyval.node) = node;
 }
-#line 1525 "src/bison.gen.c"
+#line 1572 "src/bison.gen.c"
     break;
 
-  case 55: /* VALUE: TOKEN_INT  */
-#line 284 "parser/bison.y"
+  case 58: /* VALUE: TOKEN_INT  */
+#line 303 "parser/bison.y"
                  {
     Node *node = createNode();
     node->type = NTOKEN_INT;
     node->data.INT.value = (yyvsp[0].intValue);
     (yyval.node) = node;
 }
-#line 1536 "src/bison.gen.c"
+#line 1583 "src/bison.gen.c"
     break;
 
-  case 56: /* VALUE: TOKEN_FLOAT  */
-#line 290 "parser/bison.y"
+  case 59: /* VALUE: TOKEN_FLOAT  */
+#line 309 "parser/bison.y"
             {
     Node *node = createNode();
     node->type = NTOKEN_FLOAT;
     node->data.FLOAT.value = (yyvsp[0].floatValue);
     (yyval.node) = node;
 }
-#line 1547 "src/bison.gen.c"
+#line 1594 "src/bison.gen.c"
     break;
 
-  case 57: /* VALUE: TOKEN_BOOL  */
-#line 296 "parser/bison.y"
+  case 60: /* VALUE: TOKEN_BOOL  */
+#line 315 "parser/bison.y"
            {
     Node *node = createNode();
     node->type = NTOKEN_BOOL;
     node->data.BOOL.value = (yyvsp[0].boolValue);
     (yyval.node) = node;
 }
-#line 1558 "src/bison.gen.c"
+#line 1605 "src/bison.gen.c"
     break;
 
-  case 58: /* VALUE: TOKEN_STRING  */
-#line 302 "parser/bison.y"
+  case 61: /* VALUE: TOKEN_STRING  */
+#line 321 "parser/bison.y"
              {
     Node *node = createNode();
     node->type = NTOKEN_STRING;
     node->data.STRING.value = stripString((yyvsp[0].stringValue));
     (yyval.node) = node;
 }
-#line 1569 "src/bison.gen.c"
+#line 1616 "src/bison.gen.c"
     break;
 
 
-#line 1573 "src/bison.gen.c"
+#line 1620 "src/bison.gen.c"
 
       default: break;
     }
@@ -1762,4 +1809,4 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 309 "parser/bison.y"
+#line 328 "parser/bison.y"
