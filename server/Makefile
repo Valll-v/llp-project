@@ -16,7 +16,7 @@ PRTLIB = `pkg-config --cflags --libs libprotobuf-c`
 
 INC += -I$(INCDIR) -I$(CMNDIR)$(INCDIR)
 
-COMPILE = $(CC) $(INC) -c $< -o $@
+COMPILE = $(CC) $(INC) -c $< -o $@ -g
 LINK=$(CC) -o $@
 PROTOC = protoc --c_out=$(SRCDIR) --proto_path=../common/proto/ $<
 

@@ -1,0 +1,1 @@
+struct TableScheme * getTableList(FILE *);

@@ -14,7 +14,7 @@ int writeDataToSector(FILE *file, void *dataPtr, size_t bufferSize, uint32_t sec
     if (!currentHeader.isTaken) return -1;
     size_t sectorPtr = sectorN * SECTOR_SIZE;
     fseek(file, sectorPtr + sectorDataOffset, SEEK_SET);
-    return fwrite(dataPtr, bufferSize, 1, file) - 1;
+    return fwrite(dataPtr, bufferSize, 1, file);
 }
 
 int readDataFromSector(FILE *file, void *dataPtr, size_t bufferSize, uint32_t sectorN) {
@@ -25,5 +25,5 @@ int readDataFromSector(FILE *file, void *dataPtr, size_t bufferSize, uint32_t se
     if (!currentHeader.isTaken) return -2;
     size_t sectorPtr = sectorN * SECTOR_SIZE;
     fseek(file, sectorPtr + sectorDataOffset, SEEK_SET);
-    return fread(dataPtr, bufferSize, 1, file) - 1;
+    return fread(dataPtr, bufferSize, 1, file);
 }

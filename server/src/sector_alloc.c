@@ -4,12 +4,12 @@
 
 int readSectorHeaderByIndex(FILE *file, uint32_t sectorNumber, struct SectorHeader *header) {
     fseek(file, sectorNumber * SECTOR_SIZE, SEEK_SET);
-    return fread(header, sizeof(struct SectorHeader), 1, file) - 1;
+    return fread(header, sizeof(struct SectorHeader), 1, file);
 }
 
 int writeSectorHeaderByIndex(FILE *file, uint32_t sectorNumber, struct SectorHeader *header) {
     fseek(file, sectorNumber * SECTOR_SIZE, SEEK_SET);
-    return fwrite(header, sizeof(struct SectorHeader), 1, file) - 1;
+    return fwrite(header, sizeof(struct SectorHeader), 1, file);
 }
 
 uint32_t allocateSector(FILE *file, size_t allocSize) {

@@ -33,7 +33,11 @@ int initTableScheme(
     free(emptyColumns);
 
     struct StaticFileHeader header;
+
     readStaticHeader(file, &header);
+    header.tableCount++;
+    writeStaticHeader(file, &header);
+
     addTableIndex(header.tableIndicesSector, file, tableName, tableSchemeSector);
     return 0;
 }
