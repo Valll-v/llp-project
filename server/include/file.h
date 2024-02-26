@@ -4,9 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "./table.h"
-#include "./file.h"
-#include "./index.h"
+#include "table.h"
+#include "index.h"
 
 int createFileAndInitEmptyStructure(FILE* file);
 

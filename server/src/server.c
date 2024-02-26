@@ -1,4 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "server.h"
+#include "query.h"
 
 
 Node * receiveTree(int connfd) {
@@ -21,7 +24,7 @@ Node * receiveTree(int connfd) {
 }
 
 
-int run_server() {
+int run_server(FILE* database_file) {
     int sockfd, connfd, len;
     struct sockaddr_in servaddr, cli;
 
@@ -29,7 +32,7 @@ int run_server() {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
         printf("socket creation failed...\n");
-        exit(0);
+        return -1;
     }
     else
         printf("Socket successfully created..\n");
@@ -43,7 +46,7 @@ int run_server() {
     // Binding newly created socket to given IP and verification
     if ((bind(sockfd, (SA*)&servaddr, sizeof(servaddr))) != 0) {
         printf("socket bind failed...\n");
-        exit(0);
+        return -1;
     }
     else
         printf("Socket successfully binded..\n");
@@ -51,7 +54,7 @@ int run_server() {
     // Now server is ready to listen and verification
     if ((listen(sockfd, 5)) != 0) {
         printf("Listen failed...\n");
-        exit(0);
+        return -1;
     }
     else
         printf("Server listening..\n");
@@ -60,18 +63,24 @@ int run_server() {
     connfd = accept(sockfd, (SA*)&cli, &len);
     if (connfd < 0) {
         printf("server accept failed...\n");
-        exit(0);
+        return -1;
     }
     else
         printf("server accept the client...\n");
 
     Node * tree;
+
     for (;;) {
         tree = receiveTree(connfd);
         if (tree == NULL) {
             continue;
         }
         printTree(tree, 0);
+
+        Node * query = tree->data.QUERIES_LIST.query;
+        Response * resp = CreateTable(database_file, query);
+        printf("%s", resp->string);
+
         freeNode(tree);
     }
     close(connfd);

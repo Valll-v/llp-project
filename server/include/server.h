@@ -1,7 +1,6 @@
 #include <arpa/inet.h> // inet_addr()
 #include <netdb.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <strings.h> // bzero()
 #include <sys/socket.h>
@@ -12,6 +11,6 @@
 #define PORT 1338
 #define SA struct sockaddr
 
-int run_server();
+int run_server(FILE*);
 
 Node * receiveTree(int);

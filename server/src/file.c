@@ -1,4 +1,8 @@
-#include "../include/file.h"
+#include <stdlib.h>
+#include <stdint.h>
+
+
+#include "file.h"
 
 uint32_t writeStringToSector(FILE* file, const char* string) {
     size_t buffSize = strlen(string) + SECTOR_PADDING;

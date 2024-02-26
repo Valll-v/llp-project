@@ -5,19 +5,17 @@
 #include "query.h"
 
 
-const char* db_file_name = "database.db";
-
-
 int main() {
 
-    FILE* database_file = fopen(db_file_name, "wb+");
+    FILE* database_file = fopen("database.db", "wb+");
 
     createFileAndInitEmptyStructure(database_file);
-    struct StaticFileHeader header;
-    readStaticHeader(database_file, &header);
 
     struct TableScheme table1scheme;
     initTableScheme(database_file, "table1", 3, &table1scheme);
+    schemaSetColumn(database_file, &table1scheme, 1, TABLE_TYPE_INT, "id");
+    schemaSetColumn(database_file, &table1scheme, 2, TABLE_TYPE_BOOL, "value");
+    schemaSetColumn(database_file, &table1scheme, 3, TABLE_TYPE_VARCHAR, "string");
     struct TableScheme table2scheme;
     initTableScheme(database_file, "table2", 3, &table2scheme);
     struct TableScheme table3scheme;
@@ -27,12 +25,13 @@ int main() {
     struct TableScheme table5scheme;
     initTableScheme(database_file, "table5", 3, &table5scheme);
 
-    readStaticHeader(database_file, &header);
-    printf("%d\n", header.lastSector);
+    run_server(database_file);
 
     struct TableScheme * table_list = getTableList(database_file);
 
-    printf("%s\n", table_list[1].name);
+    for (int i = 0; i < 6; ++i) {
+        printf("%s\n", table_list[i].name);
+    }
 
     fclose(database_file);
 
