@@ -1,5 +1,26 @@
 #include "server.h"
 
+
+Node * receiveTree(int connfd) {
+    size_t size = 0;
+    read(connfd, &size, sizeof(size));
+
+    uint8_t* data = malloc(size);
+    if (data == NULL) {
+        return NULL;
+    }
+
+    read(connfd, data, size);
+
+    Message * message = message__unpack(NULL, size, data);
+    free(data);
+
+    Node *tree = createNode();
+    tree = treeFromMessage(message);
+    return tree;
+}
+
+
 int run_server() {
     int sockfd, connfd, len;
     struct sockaddr_in servaddr, cli;
@@ -36,37 +57,23 @@ int run_server() {
         printf("Server listening..\n");
     len = sizeof(cli);
 
-    // Accept the data packet from client and verification
+    connfd = accept(sockfd, (SA*)&cli, &len);
+    if (connfd < 0) {
+        printf("server accept failed...\n");
+        exit(0);
+    }
+    else
+        printf("server accept the client...\n");
+
+    Node * tree;
     for (;;) {
-        connfd = accept(sockfd, (SA*)&cli, &len);
-        if (connfd < 0) {
-            printf("server accept failed...\n");
-            exit(0);
-        }
-        else
-            printf("server accept the client...\n");
-
-        size_t size = 0;
-        read(connfd, &size, sizeof(size));
-
-        uint8_t* data = malloc(size);
-        if (data == NULL) {
-            return -1;
-        }
-
-        read(connfd, data, size);
-
-        Message * message = message__unpack(NULL, size, data);
-        free(data);
-
-        Node *tree = createNode();
-        tree = treeFromMessage(message);
+        tree = receiveTree(connfd);
         if (tree == NULL) {
             continue;
         }
         printTree(tree, 0);
         freeNode(tree);
-        close(connfd);
     }
+    close(connfd);
     close(sockfd);
 }

@@ -14,6 +14,6 @@
 #define DEFAULT_PORT 8000
 #define SA struct sockaddr
 
-int sendMessage(int sockfd, Message *);
+int sendMessage(int sockfd);
 
-void run_client(Node*, char*, int);
+void run_client(char*, int);

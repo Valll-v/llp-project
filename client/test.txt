@@ -12,3 +12,26 @@ ON
 WHERE
 ("fight_record"."string" == '123' OR "fight_record"."id" == 2) AND "fight_record"."id" == 3;
 
+SELECT "fight_record"."id"
+FROM
+"fight_record"
+WHERE
+"fight_record"."id" == 1 OR ("fight_record"."id" == 2 AND "fight_record"."id" == 3);
+
+DROP TABLE "fight_record";
+
+DELETE FROM "fight_record";
+
+DELETE FROM "fight_record" WHERE "fight_record"."id" == 1;
+
+CREATE TABLE "field_list" (
+    "bebra" INTEGER,
+    "cobra" FLOAT
+);
+
+INSERT INTO "fight_record"
+VALUES ('biba');
+
+UPDATE "fight_record"
+SET "int" = 1, "float" = 2.02, "string" = 'kek', "bool" = true
+WHERE "fight_record"."int" == 1;

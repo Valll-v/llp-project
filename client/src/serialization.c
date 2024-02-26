@@ -17,7 +17,7 @@ Queries * makeQueriesFromTree(Node * tree) {
         return NULL;
     }
     if (tree->type != NTOKEN_QUERIES_LIST) {
-        printf("Invalid QUERY!");
+        printf("Invalid QUERY!\n");
         printTree(tree, 0);
         return NULL;
     }

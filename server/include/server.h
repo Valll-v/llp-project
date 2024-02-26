@@ -9,7 +9,9 @@
 
 #include "serialization.h"
 
-#define PORT 1337
+#define PORT 1338
 #define SA struct sockaddr
 
 int run_server();
+
+Node * receiveTree(int);
