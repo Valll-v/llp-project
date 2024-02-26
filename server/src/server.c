@@ -24,6 +24,26 @@ Node * receiveTree(int connfd) {
 }
 
 
+int sendResponse(int connfd, Response * resp) {
+    Message message;
+    message__init(&message);
+    message.content_case = MESSAGE__CONTENT_RESPONSE;
+    message.response = resp;
+
+    uint8_t pad[128];
+    ProtobufCBufferSimple simple = PROTOBUF_C_BUFFER_SIMPLE_INIT(pad);
+    ProtobufCBuffer *buffer = (ProtobufCBuffer *) &simple;
+    size_t size = message__pack_to_buffer(&message, buffer);
+
+    write(connfd, &size, sizeof(size));
+    write(connfd, simple.data, size);
+
+    PROTOBUF_C_BUFFER_SIMPLE_CLEAR(&simple);
+
+    return 0;
+}
+
+
 int run_server(FILE* database_file) {
     int sockfd, connfd, len;
     struct sockaddr_in servaddr, cli;
@@ -79,7 +99,9 @@ int run_server(FILE* database_file) {
 
         Node * query = tree->data.QUERIES_LIST.query;
         Response * resp = CreateTable(database_file, query);
+
         printf("%s", resp->string);
+        sendResponse(connfd, resp);
 
         freeNode(tree);
     }

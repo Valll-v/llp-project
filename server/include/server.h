@@ -14,3 +14,5 @@
 int run_server(FILE*);
 
 Node * receiveTree(int);
+
+int sendResponse(int, Response *);

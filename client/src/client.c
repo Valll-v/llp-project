@@ -51,6 +51,30 @@ int sendMessage(int sockfd) {
     return 0;
 }
 
+int receiveMessage(int sockfd) {
+    size_t size = 0;
+    read(sockfd, &size, sizeof(size));
+
+    uint8_t* data = malloc(size);
+    if (data == NULL) {
+        return -1;
+    }
+
+    read(sockfd, data, size);
+
+    Message * message = message__unpack(NULL, size, data);
+    free(data);
+
+    if (message->response == NULL) {
+        return -1;
+    }
+
+    char * text = message->response->string;
+    printf("%s", text);
+
+    return 0;
+}
+
 void run_client(char* host, int port) {
 
     int sockfd, connfd;
@@ -81,6 +105,7 @@ void run_client(char* host, int port) {
 
     while (1) {
         sendMessage(sockfd);
+        receiveMessage(sockfd);
     }
     printf("END!!!!\n");
     close(sockfd);
