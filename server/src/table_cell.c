@@ -37,26 +37,34 @@ int rowSetCellValue(
     return 0;
 }
 
-void printCellValue(FILE *file, enum CellType cell_type, void *value) {
-    union TableCellWithData cell = *(union TableCellWithData *) value;
+char * getStringCellValue(FILE *file, enum CellType cell_type, union TableCellWithData cell) {
+    char * value;
+    int len;
     switch (cell_type) {
         case TABLE_TYPE_INT:
         case TABLE_TYPE_BIGINT:
-            printf("%d", cell.intC.value);
+            int int_num = cell.intC.value;
+            len = snprintf(NULL, 0, "%d", int_num);
+            value = malloc(len + 1);
+            snprintf(value, len + 1, "%d", int_num);
             break;
         case TABLE_TYPE_VARCHAR: {
             struct StringTableCell val = cell.stringC;
-            printStringFromSector(file, val.string_value_sector, val.string_size);
+            value = getStringFromSector(file, val.string_value_sector, val.string_size);
             break;
         }
         case TABLE_TYPE_FLOAT:
-            printf("%.2f", cell.floatC.value);
+            float float_num = cell.floatC.value;
+            len = snprintf(NULL, 0, "%f", float_num);
+            value = malloc(len + 1);
+            snprintf(value, len + 1, "%f", float_num);
             break;
         case TABLE_TYPE_BOOL:
-            printf(cell.boolC.value ? "true" : "false");
+            value = (cell.boolC.value ? "true" : "false");
             break;
         case TABLE_TYPE_EMPTY:
-            printf("NaN");
+            value = "NaN";
             break;
     }
+    return value;
 }

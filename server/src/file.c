@@ -13,11 +13,11 @@ uint32_t writeStringToSector(FILE* file, const char* string) {
     return freeSector;
 }
 
-void printStringFromSector(FILE* file, uint32_t sectorNum, size_t strSize) {
+char * getStringFromSector(FILE* file, uint32_t sectorNum, size_t strSize) {
     size_t buffSize = strSize + SECTOR_PADDING;
-    char buffer[buffSize];
+    char * buffer = malloc(sizeof(char) * buffSize);
     readDataFromSector(file, buffer, buffSize, sectorNum);
-    printf("%s", buffer);
+    return buffer;
 }
 
 int createFileAndInitEmptyStructure(FILE* file) {

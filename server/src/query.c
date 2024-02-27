@@ -26,6 +26,12 @@ struct TableScheme * getTableList(FILE * database_file) {
     uint32_t schemaSector;
     for (int i = 0; i < count; ++i) {
         index = index_table->tableMap[i];
+        printf("%d\n", i);
+        printf("%u\n", index.tableNameHash);
+        if (index.tableNameHash == HASH_NONE) {
+            count++;
+            continue;
+        }
         schemaSector = index.schemaSector;
         readDataFromSector(database_file, &(table_list[i]), sizeof(struct TableScheme), schemaSector);
     }
@@ -37,7 +43,6 @@ int isTableExists(FILE * database_file, char * table_name) {
     struct StaticFileHeader header;
     readStaticHeader(database_file, &header);
     int count = header.tableCount;
-
     if (!count) {
         return 0;
     }
@@ -72,11 +77,19 @@ int tableTypeFromTree(Node * node) {
     return TABLE_TYPE_EMPTY;
 }
 
-DynamicBuffer addStringToBuffer(DynamicBuffer buffer, char * string) {
-    for (int i = 0; i < strlen(string); i++) {
-        DynamicBufferPut(&buffer, (char) string[i]);
-    }
-    return buffer;
+int insertRow(FILE * file, struct TableScheme* scheme, Node * node) {
+    int id = 1;
+    bool val = true;
+    char* str = "test_string";
+    union TableCellWithData table_row[scheme->columnsCount];
+
+    rowSetCellValue(file, scheme, table_row, 1, TABLE_TYPE_INT, &id);
+    rowSetCellValue(file, scheme, table_row, 2, TABLE_TYPE_BOOL, &val);
+    rowSetCellValue(file, scheme, table_row, 3, TABLE_TYPE_VARCHAR, str);
+
+    addRowToFile(file, scheme, table_row);
+
+    return 0;
 }
 
 char * CreateTable(FILE * database_file, Node * create_tree) {
@@ -125,21 +138,52 @@ char * CreateTable(FILE * database_file, Node * create_tree) {
     return "Created\n";
 }
 
+char * DropTable(FILE * database_file, Node * drop_tree) {
+    if (drop_tree->type != NTOKEN_DROP) {
+        return "Invalid Tree!\n";
+    }
+
+    char * table_name = drop_tree->data.DROP.table->data.TABLE.table;
+    return table_name;
+}
+
 Response * executeRequest(FILE * database_file, Node * tree) {
     if (tree == NULL || tree->type != NTOKEN_QUERIES_LIST) {
         return makeResponse("Invalid Tree!\n");
     }
 
     DynamicBuffer buffer = {0};
-    buffer = addStringToBuffer(
-        buffer, CreateTable(database_file, tree->data.QUERIES_LIST.query)
-    );
 
-    while (tree->data.QUERIES_LIST.next != NULL) {
-        tree = tree->data.QUERIES_LIST.next;
+    while (tree->data.QUERIES_LIST.query != NULL) {
+        char * string;
+        Node * query = tree->data.QUERIES_LIST.query;
+        switch (query->type) {
+            case NTOKEN_CREATE:
+                string = CreateTable(database_file, query);
+                break;
+            case NTOKEN_DELETE:
+                string = CreateTable(database_file, query);
+                break;
+            case NTOKEN_INSERT:
+                string = CreateTable(database_file, query);
+                break;
+            case NTOKEN_DROP:
+                string = DropTable(database_file, query);
+                break;
+            case NTOKEN_SELECT:
+                string = CreateTable(database_file, query);
+                break;
+            case NTOKEN_UPDATE:
+                string = CreateTable(database_file, query);
+                break;
+        }
         buffer = addStringToBuffer(
-            buffer, CreateTable(database_file, tree->data.QUERIES_LIST.query)
+            buffer, string
         );
+        if (tree->data.QUERIES_LIST.next == NULL) {
+            break;
+        }
+        tree = tree->data.QUERIES_LIST.next;
     }
 
     Response * resp = makeResponse(buffer.data);

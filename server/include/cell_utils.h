@@ -10,6 +10,6 @@ int rowSetCellValue(
         int col_num, enum CellType cell_type, void *value
 );
 
-void printCellValue(FILE *file, enum CellType cell_type, void *value);
+char * getStringCellValue(FILE *file, enum CellType cell_type, union TableCellWithData);
 
 #endif //CELL_UTILS_H

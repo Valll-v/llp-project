@@ -10,7 +10,7 @@
 int createFileAndInitEmptyStructure(FILE* file);
 
 uint32_t writeStringToSector(FILE* file, const char* string);
-void printStringFromSector(FILE* file, uint32_t sectorNum, size_t strSize);
+char * getStringFromSector(FILE* file, uint32_t sectorNum, size_t strSize);
 
 struct StaticFileHeader createFileHeader(int tableCount, int tableIndicesSector, int lastSectorTaken);
 struct StaticFileHeader createEmptyFileHeader();

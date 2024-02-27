@@ -8,10 +8,10 @@
 
 enum CellType {
     TABLE_TYPE_INT = 0,
-    TABLE_TYPE_BIGINT, // четырехбайтовые целые числа
-    TABLE_TYPE_VARCHAR, // строка определенной длины
-    TABLE_TYPE_FLOAT, // числа с плавающей точкой
     TABLE_TYPE_BOOL,
+    TABLE_TYPE_VARCHAR,
+    TABLE_TYPE_BIGINT,
+    TABLE_TYPE_FLOAT, // числа с плавающей точкой
     TABLE_TYPE_EMPTY,
 };
 

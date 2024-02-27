@@ -1,4 +1,7 @@
-#include "../include/schema.h"
+#include <stdlib.h>
+#include "schema.h"
+#include "input.h"
+#include "cell_utils.h"
 
 size_t addRowToFile(FILE *file, struct TableScheme *scheme, union TableCellWithData *row) {
     size_t row_size = sizeof(union TableCellWithData) * scheme->columnsCount;
@@ -74,7 +77,7 @@ int getRowByNumber(FILE* file, uint32_t row_number, struct TableScheme* scheme, 
     struct SectorHeader header;
     while (row_count != row_number) {
         readSectorHeaderByIndex(file, sector_ptr, &header);
-        sector_ptr = header.nextSectorNumber;
+        sector_ptr = header.nextLogicalDataSector;
         if (sector_ptr == HASH_NONE) return -1;
         row_count++;
     }
@@ -85,4 +88,70 @@ int getRowByNumber(FILE* file, uint32_t row_number, struct TableScheme* scheme, 
     return 0;
 }
 
+char * getRowsString(FILE * file, struct TableScheme* scheme) {
+    int rowsCount = getRowCount(file, scheme);
+    printf("%d\n", rowsCount);
+    int columnsCount = scheme->columnsCount;
+    enum CellType cell_type;
+
+    struct HeaderCell columns[columnsCount];
+    size_t colBuffSize = sizeof(struct HeaderCell) * columnsCount;
+    readDataFromSector(file, &columns, colBuffSize, scheme->columnsInfoSector);
+
+    union TableCellWithData **rows = getAllRows(file, scheme, rowsCount);
+    DynamicBuffer buffer = {0};
+
+    char * string;
+    for (int i = 0; i < rowsCount; ++i) {
+        string = "ROW;\n";
+        buffer = addStringToBuffer(
+            buffer, string
+        );
+
+        for (int t = 0; t < columnsCount; ++t) {
+            cell_type = columns[t].meta.cell_type;
+            string = getStringCellValue(file, cell_type, rows[i][t]);
+            buffer = addStringToBuffer(
+                buffer, string
+            );
+            buffer = addStringToBuffer(
+                buffer, "\t string\n"
+            );
+        }
+    }
+    return buffer.data;
+}
+
+union TableCellWithData ** getAllRows(FILE * file, struct TableScheme* scheme, int rowsCount) {
+    if (!rowsCount) {
+        return NULL;
+    }
+
+    union TableCellWithData **rows = malloc(sizeof(union TableCellWithData *) * rowsCount);
+
+    for (int i = 0; i < rowsCount; ++i) {
+        rows[i] = malloc(sizeof(union TableCellWithData) * scheme->columnsCount);
+        getRowByNumber(file, i + 1, scheme, rows[i]);
+    }
+    return rows;
+}
+
+int getRowCount(FILE * file, struct TableScheme* scheme) {
+    uint32_t sector_ptr = scheme->dataFirstSector;
+    if (scheme->dataFirstSector == HASH_NONE) {
+        return 0;
+    }
+    uint32_t row_count = 1;
+
+    struct SectorHeader header;
+    while (sector_ptr != scheme->dataLastSector) {
+        readSectorHeaderByIndex(file, sector_ptr, &header);
+        if (header.isTaken) {
+            row_count++;
+        }
+        sector_ptr = header.nextLogicalDataSector;
+    }
+
+    return row_count;
+}
 

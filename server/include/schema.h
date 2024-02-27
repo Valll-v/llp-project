@@ -14,5 +14,8 @@ int schemaSetColumn(FILE* file, struct TableScheme* scheme, int colNum, enum Cel
 size_t addRowToFile(FILE* file, struct TableScheme* scheme, union TableCellWithData *row);
 int deleteRowFromFile(FILE* file, uint32_t row_number, struct TableScheme* scheme);
 int getRowByNumber(FILE* file, uint32_t row_number, struct TableScheme* scheme, union TableCellWithData* row);
+int getRowCount(FILE *, struct TableScheme *);
+union TableCellWithData ** getAllRows(FILE *, struct TableScheme *, int);
+char * getRowsString(FILE *, struct TableScheme*);
 
 #endif //LAB1LLP_TABLE_SCHEMA_UTILS_H
