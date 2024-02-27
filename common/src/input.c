@@ -27,3 +27,10 @@ void DynamicBufferFree(DynamicBuffer *buffer) {
 void DynamicBufferReset(DynamicBuffer *buffer) {
     buffer->ptr = 0;
 }
+
+DynamicBuffer addStringToBuffer(DynamicBuffer buffer, char * string) {
+    for (int i = 0; i < strlen(string); i++) {
+        DynamicBufferPut(&buffer, (char) string[i]);
+    }
+    return buffer;
+}

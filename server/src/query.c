@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "table.h"
 #include "tree.h"
 #include "tree.pb-c.h"
@@ -7,6 +8,13 @@
 #include "cell_utils.h"
 #include "schema.h"
 
+
+int getTableCount(FILE * database_file) {
+    struct StaticFileHeader header;
+    readStaticHeader(database_file, &header);
+    int count = header.tableCount;
+    return count;
+}
 
 struct TableScheme * getTableList(FILE * database_file) {
     struct StaticFileHeader header;
@@ -26,8 +34,6 @@ struct TableScheme * getTableList(FILE * database_file) {
     uint32_t schemaSector;
     for (int i = 0; i < count; ++i) {
         index = index_table->tableMap[i];
-        printf("%d\n", i);
-        printf("%u\n", index.tableNameHash);
         if (index.tableNameHash == HASH_NONE) {
             count++;
             continue;
@@ -56,6 +62,23 @@ int isTableExists(FILE * database_file, char * table_name) {
     return 0;
 }
 
+struct TableScheme * getTable(FILE * database_file, char * table_name) {
+    struct StaticFileHeader header;
+    readStaticHeader(database_file, &header);
+    int count = header.tableCount;
+    if (!count) {
+        return NULL;
+    }
+
+    struct TableScheme * table_list = getTableList(database_file);
+    for (int i = 0; i < count; ++i) {
+        if (strcmp(table_name, table_list[i].name) == 0) {
+            return &table_list[i];
+        }
+    }
+    return NULL;
+}
+
 Response * makeResponse(char * response_text) {
     Response * response = malloc(sizeof(Response));
     response__init(response);
@@ -77,19 +100,99 @@ int tableTypeFromTree(Node * node) {
     return TABLE_TYPE_EMPTY;
 }
 
-int insertRow(FILE * file, struct TableScheme* scheme, Node * node) {
-    int id = 1;
-    bool val = true;
-    char* str = "test_string";
+char * insertRow(FILE * file, struct TableScheme* scheme, Node * node) {
+    if (node->type != NTOKEN_VALUES_LIST) {
+        return "Invalid tree!\n";
+    }
+    int columnsCount = scheme->columnsCount;
+    enum CellType cell_type;
+
+    struct HeaderCell columns[columnsCount];
+    size_t colBuffSize = sizeof(struct HeaderCell) * columnsCount;
+    readDataFromSector(file, &columns, colBuffSize, scheme->columnsInfoSector);
+
     union TableCellWithData table_row[scheme->columnsCount];
+    int nodeCounter = 0;
 
-    rowSetCellValue(file, scheme, table_row, 1, TABLE_TYPE_INT, &id);
-    rowSetCellValue(file, scheme, table_row, 2, TABLE_TYPE_BOOL, &val);
-    rowSetCellValue(file, scheme, table_row, 3, TABLE_TYPE_VARCHAR, str);
+    Node * valueNode;
+    while (node->data.VALUES_LIST.value != NULL) {
+        valueNode = node->data.VALUES_LIST.value;
+        cell_type = columns[nodeCounter].meta.cell_type;
+        if (nodeCounter >= columnsCount) {
+            return "Too more args\n";
+        }
 
+        switch (cell_type) {
+            case TABLE_TYPE_INT:
+            case TABLE_TYPE_BIGINT:
+                if (valueNode->type != NTOKEN_INT) {
+                    return "Invalid INT value\n";
+                }
+                rowSetCellValue(
+                    file, scheme, table_row, nodeCounter + 1,
+                    cell_type, &valueNode->data.INT.value
+                );
+                break;
+            case TABLE_TYPE_FLOAT:
+                if (valueNode->type != NTOKEN_FLOAT) {
+                    return "Invalid FLOAT value\n";
+                }
+                rowSetCellValue(
+                    file, scheme, table_row, nodeCounter + 1,
+                    cell_type, &valueNode->data.FLOAT.value
+                );
+                break;
+            case TABLE_TYPE_VARCHAR:
+                if (valueNode->type != NTOKEN_STRING) {
+                    return "Invalid STRING value\n";
+                }
+                rowSetCellValue(
+                    file, scheme, table_row, nodeCounter + 1,
+                    cell_type, valueNode->data.STRING.value
+                );
+                break;
+            case TABLE_TYPE_BOOL:
+                if (valueNode->type != NTOKEN_BOOL) {
+                    return "Invalid BOOL value\n";
+                }
+                rowSetCellValue(
+                    file, scheme, table_row, nodeCounter + 1,
+                    cell_type, &valueNode->data.BOOL.value
+                );
+                break;
+        }
+        nodeCounter++;
+        if (node->data.VALUES_LIST.next == NULL) {
+            break;
+        }
+        node = node->data.VALUES_LIST.next;
+    }
+
+    if (nodeCounter != columnsCount) {
+        return "Too few args\n";
+    }
     addRowToFile(file, scheme, table_row);
 
-    return 0;
+    return "INSERTED\n";
+}
+
+char * InsertInto(FILE * file, Node * insert_tree) {
+    if (insert_tree->type != NTOKEN_INSERT) {
+        return "Invalid Tree!\n";
+    }
+
+    Node * values_list = insert_tree->data.INSERT.values_list;
+    char * table_name = insert_tree->data.INSERT.table->data.TABLE.table;
+
+    if (!isTableExists(file, table_name)) {
+        return "Table does not exists!\n";
+    }
+
+    struct TableScheme * scheme = getTable(file, table_name);
+    if (scheme == NULL) {
+        return "Table does not exists!\n";
+    }
+    return insertRow(file, scheme, values_list);
 }
 
 char * CreateTable(FILE * database_file, Node * create_tree) {
@@ -153,6 +256,7 @@ Response * executeRequest(FILE * database_file, Node * tree) {
     }
 
     DynamicBuffer buffer = {0};
+    struct TableScheme * table_list;
 
     while (tree->data.QUERIES_LIST.query != NULL) {
         char * string;
@@ -160,26 +264,54 @@ Response * executeRequest(FILE * database_file, Node * tree) {
         switch (query->type) {
             case NTOKEN_CREATE:
                 string = CreateTable(database_file, query);
+                buffer = addStringToBuffer(
+                    buffer, string
+                );
+                buffer = addStringToBuffer(
+                    buffer, "Table count: "
+                );
+
+                int x = getTableCount(database_file);
+                int length = snprintf( NULL, 0, "%d", x );
+                char* str = malloc( length + 1 );
+                snprintf( str, length + 1, "%d", x );
+                buffer = addStringToBuffer(
+                    buffer, str
+                );
+                free(str);
+
                 break;
             case NTOKEN_DELETE:
                 string = CreateTable(database_file, query);
+                buffer = addStringToBuffer(
+                    buffer, string
+                );
                 break;
             case NTOKEN_INSERT:
-                string = CreateTable(database_file, query);
+                string = InsertInto(database_file, query);
+                buffer = addStringToBuffer(
+                    buffer, string
+                );
                 break;
             case NTOKEN_DROP:
                 string = DropTable(database_file, query);
+                buffer = addStringToBuffer(
+                    buffer, string
+                );
                 break;
             case NTOKEN_SELECT:
                 string = CreateTable(database_file, query);
+                buffer = addStringToBuffer(
+                    buffer, string
+                );
                 break;
             case NTOKEN_UPDATE:
                 string = CreateTable(database_file, query);
+                buffer = addStringToBuffer(
+                    buffer, string
+                );
                 break;
         }
-        buffer = addStringToBuffer(
-            buffer, string
-        );
         if (tree->data.QUERIES_LIST.next == NULL) {
             break;
         }

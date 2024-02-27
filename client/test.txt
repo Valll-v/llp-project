@@ -24,13 +24,11 @@ DELETE FROM "fight_record";
 
 DELETE FROM "fight_record" WHERE "fight_record"."id" == 1;
 
-CREATE TABLE "field_list" (
-    "bebra" INTEGER,
-    "cobra" FLOAT
-);
+CREATE TABLE "fight_record" ("bebra" INTEGER, "cobra" FLOAT);
 
-INSERT INTO "fight_record"
-VALUES ('biba');
+INSERT INTO "fight_record" VALUES (1, 1.01);\s
+
+INSERT INTO "table1" VALUES (3, true, 'biba');\s
 
 UPDATE "fight_record"
 SET "int" = 1, "float" = 2.02, "string" = 'kek', "bool" = true

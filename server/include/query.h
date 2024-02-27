@@ -13,4 +13,8 @@ Response * makeResponse(char *);
 
 char * DropTable(FILE *, Node *);
 
-int insertRow(FILE *, struct TableScheme*, Node *);
+char * insertRow(FILE *, struct TableScheme*, Node *);
+
+struct TableScheme getTable(FILE *, char *);
+
+char * InsertInto(FILE *, Node *);

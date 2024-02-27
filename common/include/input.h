@@ -13,3 +13,5 @@ int DynamicBufferPut(DynamicBuffer *buffer, char c);
 void DynamicBufferFree(DynamicBuffer *buffer);
 
 void DynamicBufferReset(DynamicBuffer *buffer);
+
+DynamicBuffer addStringToBuffer(DynamicBuffer, char *);
