@@ -95,10 +95,8 @@ int run_server(FILE* database_file) {
         if (tree == NULL) {
             continue;
         }
-        printTree(tree, 0);
 
-        Node * query = tree->data.QUERIES_LIST.query;
-        Response * resp = CreateTable(database_file, query);
+        Response * resp = executeRequest(database_file, tree);
 
         printf("%s", resp->string);
         sendResponse(connfd, resp);

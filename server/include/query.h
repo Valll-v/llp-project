@@ -1,6 +1,13 @@
+#include "input.h"
+
+
 struct TableScheme * getTableList(FILE *);
 
-Response * CreateTable(FILE *, Node *);
+char * CreateTable(FILE *, Node *);
+
+DynamicBuffer addStringToBuffer(DynamicBuffer, char *);
+
+Response * executeRequest(FILE *, Node *);
 
 int tableTypeFromTree(Node *);
 

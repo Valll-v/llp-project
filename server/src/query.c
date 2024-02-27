@@ -3,6 +3,7 @@
 #include "tree.h"
 #include "tree.pb-c.h"
 #include "file.h"
+#include "input.h"
 #include "cell_utils.h"
 #include "schema.h"
 
@@ -50,7 +51,6 @@ int isTableExists(FILE * database_file, char * table_name) {
     return 0;
 }
 
-
 Response * makeResponse(char * response_text) {
     Response * response = malloc(sizeof(Response));
     response__init(response);
@@ -72,16 +72,23 @@ int tableTypeFromTree(Node * node) {
     return TABLE_TYPE_EMPTY;
 }
 
-Response * CreateTable(FILE * database_file, Node * create_tree) {
+DynamicBuffer addStringToBuffer(DynamicBuffer buffer, char * string) {
+    for (int i = 0; i < strlen(string); i++) {
+        DynamicBufferPut(&buffer, (char) string[i]);
+    }
+    return buffer;
+}
+
+char * CreateTable(FILE * database_file, Node * create_tree) {
     if (create_tree->type != NTOKEN_CREATE) {
-        return makeResponse("Invalid Tree!\n");
+        return "Invalid Tree!\n";
     }
 
     Node * field_list = create_tree->data.CREATE.field_list;
     char * table_name = create_tree->data.CREATE.table->data.TABLE.table;
 
     if (isTableExists(database_file, table_name)) {
-        return makeResponse("Table already exists!\n");
+        return "Table already exists!\n";
     }
 
     int count = 1;
@@ -115,5 +122,26 @@ Response * CreateTable(FILE * database_file, Node * create_tree) {
         );
     }
 
-    return makeResponse("Created\n");
+    return "Created\n";
+}
+
+Response * executeRequest(FILE * database_file, Node * tree) {
+    if (tree == NULL || tree->type != NTOKEN_QUERIES_LIST) {
+        return makeResponse("Invalid Tree!\n");
+    }
+
+    DynamicBuffer buffer = {0};
+    buffer = addStringToBuffer(
+        buffer, CreateTable(database_file, tree->data.QUERIES_LIST.query)
+    );
+
+    while (tree->data.QUERIES_LIST.next != NULL) {
+        tree = tree->data.QUERIES_LIST.next;
+        buffer = addStringToBuffer(
+            buffer, CreateTable(database_file, tree->data.QUERIES_LIST.query)
+        );
+    }
+
+    Response * resp = makeResponse(buffer.data);
+    return resp;
 }

@@ -70,7 +70,7 @@ int receiveMessage(int sockfd) {
     }
 
     char * text = message->response->string;
-    printf("%s", text);
+    printf("%s\n", text);
 
     return 0;
 }

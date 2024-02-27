@@ -7,7 +7,7 @@
 
 int main() {
 
-    FILE* database_file = fopen("database.db", "wb+");
+    FILE* database_file = fopen("database.db", "ab+");
 
     createFileAndInitEmptyStructure(database_file);
 
@@ -26,12 +26,6 @@ int main() {
     initTableScheme(database_file, "table5", 3, &table5scheme);
 
     run_server(database_file);
-
-    struct TableScheme * table_list = getTableList(database_file);
-
-    for (int i = 0; i < 6; ++i) {
-        printf("%s\n", table_list[i].name);
-    }
 
     fclose(database_file);
 
