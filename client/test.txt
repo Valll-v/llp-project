@@ -1,35 +1,8 @@
-SELECT "fight_record"."id", "fight_record"."id"
-FROM
-"fight_record"
-JOIN
-"fight"
-ON
-"fight"."id" = "fight_record"."id"
-JOIN
-"fight"
-ON
-"fight"."id" = "fight_record"."id"
-WHERE
-("fight_record"."string" == '123' OR "fight_record"."id" == 2) AND "fight_record"."id" == 3;
-
-SELECT "fight_record"."id"
-FROM
-"fight_record"
-WHERE
-"fight_record"."id" == 1 OR ("fight_record"."id" == 2 AND "fight_record"."id" == 3);
-
-DROP TABLE "fight_record";
-
-DELETE FROM "fight_record";
-
-DELETE FROM "fight_record" WHERE "fight_record"."id" == 1;
-
 CREATE TABLE "fight_record" ("bebra" INTEGER, "cobra" FLOAT);
+CREATE TABLE "table1" ("bebra" INTEGER, "cobra" BOOL, "string" STRING);
+CREATE TABLE "table2" ("bebra" INTEGER, "cobra" BOOL, "string" STRING);
 
-INSERT INTO "fight_record" VALUES (1, 1.01);\s
-
-INSERT INTO "table1" VALUES (3, true, 'biba');\s
-
-UPDATE "fight_record"
-SET "int" = 1, "float" = 2.02, "string" = 'kek', "bool" = true
-WHERE "fight_record"."int" == 1;
+INSERT INTO "fight_record" VALUES (1, 1.01);
+INSERT INTO "table1" VALUES (3, true, 'biba');
+INSERT INTO "table2" VALUES (3, true, 'biba');
+INSERT INTO "table2" VALUES (3, true);

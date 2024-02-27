@@ -82,6 +82,10 @@ Query * makeQueryFromTree(Node * tree) {
             query->content_case = QUERY__CONTENT_DROP_EXP;
             query->drop_exp = makeDropFromTree(tree);
             break;
+        case TABLE_LIST:
+            query->content_case = QUERY__CONTENT_TABLE_LIST_EXP;
+            query->table_list_exp = 1;
+            break;
     }
     return query;
 }

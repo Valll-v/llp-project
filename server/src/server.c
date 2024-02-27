@@ -97,7 +97,6 @@ int run_server(FILE* database_file) {
         }
 
         Response * resp = executeRequest(database_file, tree);
-
         printf("%s", resp->string);
         sendResponse(connfd, resp);
 

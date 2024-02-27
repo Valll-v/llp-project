@@ -90,7 +90,6 @@ int getRowByNumber(FILE* file, uint32_t row_number, struct TableScheme* scheme, 
 
 char * getRowsString(FILE * file, struct TableScheme* scheme) {
     int rowsCount = getRowCount(file, scheme);
-    printf("%d\n", rowsCount);
     if (!rowsCount) {
         return "EMPTY TABLE!\n";
     }

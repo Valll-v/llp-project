@@ -8,18 +8,27 @@ Node * makeTree() {
     int s;
     DynamicBuffer buffer = {0};
     printf("Enter your query.\n");
-
+    Node * tree;
     while ((s = getchar()) != 0) {
         if (s == '\\') {
             s = getchar();
             if (s == 's') {
                 break;
             }
+            else if (s == 'd') {
+                tree = createNode();
+                tree->type = NTOKEN_QUERIES_LIST;
+                Node * table_list_node = createNode();
+                table_list_node->type = TABLE_LIST;
+                tree->data.QUERIES_LIST.query = table_list_node;
+                DynamicBufferFree(&buffer);
+                return tree;
+            }
         } else {
             DynamicBufferPut(&buffer, (char) s);
         }
     }
-    Node * tree = parseQuery(buffer.data);
+    tree = parseQuery(buffer.data);
     DynamicBufferFree(&buffer);
     if (tree == NULL) {
         printf("tree is NULL, fault!!! \n");

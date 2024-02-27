@@ -66,6 +66,10 @@ Node * treeFromQuery(Query * query) {
         case QUERY__CONTENT_DROP_EXP:
             node = treeFromDrop(query->drop_exp);
             break;
+        case QUERY__CONTENT_TABLE_LIST_EXP:
+            node = createNode();
+            node->type = TABLE_LIST;
+            break;
     }
     return node;
 }

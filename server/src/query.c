@@ -8,7 +8,6 @@
 #include "cell_utils.h"
 #include "schema.h"
 
-
 int getTableCount(FILE * database_file) {
     struct StaticFileHeader header;
     readStaticHeader(database_file, &header);
@@ -250,6 +249,52 @@ char * DropTable(FILE * database_file, Node * drop_tree) {
     return table_name;
 }
 
+char * TableList(FILE * database_file, Node * tree) {
+    if (tree->type != TABLE_LIST) {
+        return "Invalid Tree!\n";
+    }
+    DynamicBuffer buffer = {0};
+
+    int table_count = getTableCount(database_file);
+    if (!table_count) {
+        return "Table count: 0.\n";
+    }
+    buffer = addStringToBuffer(
+        buffer, "Table count: "
+    );
+
+    int x = getTableCount(database_file);
+    int length = snprintf( NULL, 0, "%d", x );
+    char* str = malloc( length + 1 );
+    snprintf( str, length + 1, "%d", x );
+    buffer = addStringToBuffer(
+        buffer, str
+    );
+    buffer = addStringToBuffer(
+        buffer, "\n\n"
+    );
+    free(str);
+
+    struct TableScheme * table_list = getTableList(database_file);
+
+    struct TableScheme table;
+    for (int i = 0; i < table_count; ++i) {
+        table = table_list[i];
+        buffer = addStringToBuffer(
+            buffer, "Table name: "
+        );
+        buffer = addStringToBuffer(
+            buffer, table.name
+        );
+        buffer = addStringToBuffer(
+            buffer, "\n"
+        );
+    }
+
+    free(table_list);
+    return buffer.data;
+}
+
 Response * executeRequest(FILE * database_file, Node * tree) {
     if (tree == NULL || tree->type != NTOKEN_QUERIES_LIST) {
         return makeResponse("Invalid Tree!\n");
@@ -267,18 +312,6 @@ Response * executeRequest(FILE * database_file, Node * tree) {
                 buffer = addStringToBuffer(
                     buffer, string
                 );
-                buffer = addStringToBuffer(
-                    buffer, "Table count: "
-                );
-
-                int x = getTableCount(database_file);
-                int length = snprintf( NULL, 0, "%d", x );
-                char* str = malloc( length + 1 );
-                snprintf( str, length + 1, "%d", x );
-                buffer = addStringToBuffer(
-                    buffer, str
-                );
-                free(str);
 
                 break;
             case NTOKEN_DELETE:
@@ -307,6 +340,12 @@ Response * executeRequest(FILE * database_file, Node * tree) {
                 break;
             case NTOKEN_UPDATE:
                 string = CreateTable(database_file, query);
+                buffer = addStringToBuffer(
+                    buffer, string
+                );
+                break;
+            case TABLE_LIST:
+                string = TableList(database_file, query);
                 buffer = addStringToBuffer(
                     buffer, string
                 );

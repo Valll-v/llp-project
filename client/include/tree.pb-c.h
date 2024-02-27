@@ -130,7 +130,8 @@ typedef enum {
   QUERY__CONTENT_CREATE_EXP = 3,
   QUERY__CONTENT_DELETE_EXP = 4,
   QUERY__CONTENT_INSERT_EXP = 5,
-  QUERY__CONTENT_DROP_EXP = 6
+  QUERY__CONTENT_DROP_EXP = 6,
+  QUERY__CONTENT_TABLE_LIST_EXP = 7
     PROTOBUF_C__FORCE_ENUM_TO_BE_INT_SIZE(QUERY__CONTENT__CASE)
 } Query__ContentCase;
 
@@ -145,6 +146,7 @@ struct  Query
     DeleteExp *delete_exp;
     InsertExp *insert_exp;
     DropExp *drop_exp;
+    protobuf_c_boolean table_list_exp;
   };
 };
 #define QUERY__INIT \

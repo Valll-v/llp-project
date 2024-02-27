@@ -27,6 +27,7 @@ message Query {
     DeleteExp delete_exp = 4;
     InsertExp insert_exp = 5;
     DropExp drop_exp = 6;
+    bool table_list_exp = 7;
   }
 }
 

@@ -1387,7 +1387,7 @@ const ProtobufCMessageDescriptor queries__descriptor =
   (ProtobufCMessageInit) queries__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
-static const ProtobufCFieldDescriptor query__field_descriptors[6] =
+static const ProtobufCFieldDescriptor query__field_descriptors[7] =
 {
   {
     "select_exp",
@@ -1461,6 +1461,18 @@ static const ProtobufCFieldDescriptor query__field_descriptors[6] =
     PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
+  {
+    "table_list_exp",
+    7,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_BOOL,
+    offsetof(Query, content_case),
+    offsetof(Query, table_list_exp),
+    NULL,
+    NULL,
+    PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
 };
 static const unsigned query__field_indices_by_name[] = {
   2,   /* field[2] = create_exp */
@@ -1468,12 +1480,13 @@ static const unsigned query__field_indices_by_name[] = {
   5,   /* field[5] = drop_exp */
   4,   /* field[4] = insert_exp */
   0,   /* field[0] = select_exp */
+  6,   /* field[6] = table_list_exp */
   1,   /* field[1] = update_exp */
 };
 static const ProtobufCIntRange query__number_ranges[1 + 1] =
 {
   { 1, 0 },
-  { 0, 6 }
+  { 0, 7 }
 };
 const ProtobufCMessageDescriptor query__descriptor =
 {
@@ -1483,7 +1496,7 @@ const ProtobufCMessageDescriptor query__descriptor =
   "Query",
   "",
   sizeof(Query),
-  6,
+  7,
   query__field_descriptors,
   query__field_indices_by_name,
   1,  query__number_ranges,

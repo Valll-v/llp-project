@@ -26,7 +26,8 @@ enum nodeType {
     NTOKEN_DELETE,
     NTOKEN_INSERT,
     NTOKEN_VALUES_LIST,
-    NTOKEN_DROP
+    NTOKEN_DROP,
+    TABLE_LIST
 };  /* Типы значений */
 
 enum compareType {

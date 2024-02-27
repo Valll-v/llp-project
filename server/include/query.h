@@ -18,3 +18,5 @@ char * insertRow(FILE *, struct TableScheme*, Node *);
 struct TableScheme getTable(FILE *, char *);
 
 char * InsertInto(FILE *, Node *);
+
+char * TableList(FILE *, Node *);
