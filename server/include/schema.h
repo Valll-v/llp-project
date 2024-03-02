@@ -16,6 +16,5 @@ int deleteRowFromFile(FILE* file, uint32_t row_number, struct TableScheme* schem
 int getRowByNumber(FILE* file, uint32_t row_number, struct TableScheme* scheme, union TableCellWithData* row);
 int getRowCount(FILE *, struct TableScheme *);
 union TableCellWithData ** getAllRows(FILE *, struct TableScheme *, int);
-char * getRowsString(FILE *, struct TableScheme*);
 
 #endif //LAB1LLP_TABLE_SCHEMA_UTILS_H

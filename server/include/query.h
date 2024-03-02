@@ -1,4 +1,5 @@
 #include "input.h"
+#include "schema.h"
 
 
 struct TableScheme * getTableList(FILE *);
@@ -20,3 +21,11 @@ struct TableScheme getTable(FILE *, char *);
 char * InsertInto(FILE *, Node *);
 
 char * TableList(FILE *, Node *);
+
+char * SelectFrom(FILE *, Node *);
+
+bool checkRowForWhere(FILE*, union TableCellWithData*, Node *, int, struct HeaderCell *);
+
+bool bothLogic(int, int, Node *);
+
+char * getRowsString(FILE *, Node *, int, struct HeaderCell *, union TableCellWithData **, int);

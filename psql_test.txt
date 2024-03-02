@@ -1,5 +1,5 @@
-CREATE TABLE "skillLevel" ("skillLevel" STRING, "id" INTEGER);
-CREATE TABLE "recipes" ("name" STRING, "skillLevel" INTEGER, "preparationTime" INTEGER);
+CREATE TABLE "skillLevel" ("skillLevel" VARCHAR(16), "id" INTEGER);
+CREATE TABLE "recipes" ("name" VARCHAR(128), "skillLevel" INTEGER, "preparationTime" INTEGER);
 
 INSERT INTO "skillLevel" VALUES('Easy', 1);
 INSERT INTO "skillLevel" VALUES('Normal', 2);
@@ -32,9 +32,3 @@ INSERT INTO "recipes" VALUES ('Sauteed artichokes, potatoes & egg', 1, 4800);
 INSERT INTO "recipes" VALUES ('Saras chilli con carne', 3, 300);
 INSERT INTO "recipes" VALUES ('Soy & butter salmon parcels', 4, 900);
 INSERT INTO "recipes" VALUES ('Really easy roast chicken', 2, 900);
-
-SELECT "skillLevel"."skillLevel", "skillLevel"."id", "recipes"."name", "recipes"."skillLevel", "recipes"."preparationTime"
-FROM "recipes"
-JOIN "skillLevel" ON "recipes"."skillLevel" = "skillLevel"."id"
-WHERE "recipes"."preparationTime" > 500;
-\s

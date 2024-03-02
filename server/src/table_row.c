@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "schema.h"
 #include "input.h"
+#include "tree.h"
 #include "cell_utils.h"
 
 size_t addRowToFile(FILE *file, struct TableScheme *scheme, union TableCellWithData *row) {
@@ -86,42 +87,6 @@ int getRowByNumber(FILE* file, uint32_t row_number, struct TableScheme* scheme, 
     readDataFromSector(file, row, row_size, sector_ptr);
 
     return 0;
-}
-
-char * getRowsString(FILE * file, struct TableScheme* scheme) {
-    int rowsCount = getRowCount(file, scheme);
-    if (!rowsCount) {
-        return "EMPTY TABLE!\n";
-    }
-    int columnsCount = scheme->columnsCount;
-    enum CellType cell_type;
-
-    struct HeaderCell columns[columnsCount];
-    size_t colBuffSize = sizeof(struct HeaderCell) * columnsCount;
-    readDataFromSector(file, &columns, colBuffSize, scheme->columnsInfoSector);
-
-    union TableCellWithData **rows = getAllRows(file, scheme, rowsCount);
-    DynamicBuffer buffer = {0};
-
-    char * string;
-    for (int i = 0; i < rowsCount; ++i) {
-        string = "ROW;\n";
-        buffer = addStringToBuffer(
-            buffer, string
-        );
-
-        for (int t = 0; t < columnsCount; ++t) {
-            cell_type = columns[t].meta.cell_type;
-            string = getStringCellValue(file, cell_type, rows[i][t]);
-            buffer = addStringToBuffer(
-                buffer, string
-            );
-            buffer = addStringToBuffer(
-                buffer, "\t string\n"
-            );
-        }
-    }
-    return buffer.data;
 }
 
 union TableCellWithData ** getAllRows(FILE * file, struct TableScheme* scheme, int rowsCount) {

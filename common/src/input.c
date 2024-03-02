@@ -30,6 +30,7 @@ void DynamicBufferReset(DynamicBuffer *buffer) {
 
 DynamicBuffer addStringToBuffer(DynamicBuffer buffer, char * string) {
     for (int i = 0; i < strlen(string); i++) {
+        printf("%ld\n", strlen(string));
         DynamicBufferPut(&buffer, (char) string[i]);
     }
     return buffer;

@@ -7,9 +7,12 @@
 
 int main() {
 
-    FILE* database_file = fopen("database.db", "wb+");
+    FILE* database_file = fopen("database.db", "rb+");
 
-    createFileAndInitEmptyStructure(database_file);
+    if (database_file == NULL) {
+        database_file = fopen("database.db", "wsb+");
+        createFileAndInitEmptyStructure(database_file);
+    }
 
     run_server(database_file);
 
